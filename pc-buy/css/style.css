@@ -1,0 +1,233 @@
+/* ========== Global Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== Root Variables ========== */
+:root {
+  --primary-green: #008042;
+  --accent-green: #006e38;
+  --light-bg: #f7f7f7;
+  --light-text: #1c1c1e;
+  --dark-bg: #1c1c1e;
+  --dark-text: #e5e5e5;
+  --card-light: #e6e6e6;
+  --card-dark: #2a2a2d;
+}
+
+/* ========== Light Theme (Default) ========== */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+/* ========== Dark Theme ========== */
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* ========== Top Navigation Bar ========== */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d3d3d3; /* Darker gray for light mode */
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+body.dark-mode .top-nav {
+  background-color: var(--card-dark);
+}
+
+.logo-img {
+  max-height: 70px;
+  padding: 0.3rem;
+  border-radius: 10px;
+}
+
+/* Centered and large search bar */
+.search-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 700px;
+  height: 55px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+}
+
+body.dark-mode .search-bar {
+  background-color: var(--card-dark);
+  color: var(--dark-text);
+  border: 1px solid #555;
+}
+
+/* Right side nav actions */
+.nav-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.nav-actions button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.nav-actions button:hover {
+  background-color: var(--accent-green);
+}
+
+/* ========== Main Layout ========== */
+.main-layout {
+  display: flex;
+  padding: 1rem;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== Sidebar Categories ========== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 0 0 220px;
+}
+
+
+.categories-article {
+  flex: 0 0 220px;
+  background-color: var(--card-light);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.brands-article {
+  flex: 0 0 220px;
+  background-color: var(--card-light);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+body.dark-mode .brands-article {
+  background-color: var(--card-dark);
+}
+
+.brand-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.brand-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+body.dark-mode .brand-list li {
+  border-bottom: 1px solid #444;
+}
+
+
+body.dark-mode .categories-article {
+  background-color: var(--card-dark);
+}
+
+.category-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.category-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+body.dark-mode .category-list li {
+  border-bottom: 1px solid #444;
+}
+
+/* ========== Products Section ========== */
+.products-article {
+  flex: 1;
+  background-color: var(--card-light);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+body.dark-mode .products-article {
+  background-color: var(--card-dark);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.product-card {
+  background-color: #dcdcdc;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+
+body.dark-mode .product-card {
+  background-color: #2a2a2d;
+  border: 1px solid #444;
+}
+
+.product-card h4 {
+  margin-bottom: 0.5rem;
+}
+
+.product-card button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  background-color: var(--accent-green);
+}
+
+/* ========== Footer ========== */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #d3d3d3;
+  margin-top: 2rem;
+}
+
+body.dark-mode footer {
+  background-color: var(--card-dark);
+}
