@@ -15,7 +15,7 @@
     <input type="text" class="search-bar" placeholder="Search products..." />
   </div>
   <div class="nav-actions">
-    <button>Login</button>
+    <button id="openLoginBtn">Login</button>
     <button>Cart</button>
     <button onclick="toggleMode()">🌙</button>
   </div>
@@ -67,6 +67,24 @@
       </div>
     </article>
   </main>
+
+    <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+      <div class="form-links">
+        <label><a href="#">Forgot password?</a></label> |
+        <label><a href="#">Sign up</a></label>
+      </div>
+    </div>
+  </div>
+
 
   <footer>
     <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
