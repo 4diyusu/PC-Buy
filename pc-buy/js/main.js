@@ -9,8 +9,8 @@ document.getElementById("openLoginBtn").addEventListener("click", function () {
   document.getElementById("loginModal").style.display = "flex"; // Make sure your CSS uses flex
 });
 
-// Hide modal via close button
-document.querySelector(".modal-content").addEventListener("click", (e) => {
+// Stop click inside modal box from closing the modal
+document.querySelector(".login-outer-box").addEventListener("click", (e) => {
   e.stopPropagation();
 });
 
