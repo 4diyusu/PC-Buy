@@ -57,16 +57,16 @@ body.dark-mode .top-nav {
   flex: 1;
   display: flex;
   justify-content: center;
-  
 }
 
 .search-bar {
   width: 100%;
   max-width: 700px;
   height: 55px;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 40px;
+  font-size: 1rem;
 }
 
 body.dark-mode .search-bar {
@@ -96,66 +96,106 @@ body.dark-mode .search-bar {
   background-color: var(--accent-green);
 }
 
-/* Modal background */
+/* ========== Modal Styles ========== */
 .modal {
-  display: none; 
   position: fixed;
-  z-index: 10;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+  display: none; /* hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-/* Modal content */
-.modal-content {
-  background-color: #fefefe;
-  margin: 10% auto;
-  padding: 20px;
+.modal.show {
+  display: flex; /* show modal */
+}
+
+/* Outer white box */
+.login-outer-box {
+  background-color: #ffffff;
+  padding: 35px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: 420px;
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
+/* Inner gray box */
+.login-box {
+  background-color: #e4e4e4; /* light gray */
+  padding: 30px 30px 25px;
   border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  position: relative;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-title {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
   text-align: center;
 }
 
-/* Close button */
-.close {
-  color: #aaa;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 28px;
-  cursor: pointer;
+.login-box hr {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin-bottom: 20px;
 }
 
-.modal-content input {
-  width: 90%;
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 1rem;
+.login-box label {
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+  font-weight: bold;
 }
 
-.modal-content button {
+.login-box input {
   width: 100%;
   padding: 10px;
-  background-color: #52accc;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.login-box button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #52accc; /* original blue */
   color: white;
   border: none;
   border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.form-links {
-  margin-top: 15px;
+.login-box button:hover {
+  background-color: #409bb9;
+}
+
+.login-links {
+  margin-top: 20px;
+  text-align: center;
   font-size: 0.9rem;
 }
 
-.form-links a {
+.login-links p {
+  margin: 5px 0;
+}
+
+.login-links a {
   color: #007BFF;
   text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
 }
 
 /* ========== Main Layout ========== */
@@ -175,13 +215,16 @@ body.dark-mode .search-bar {
   flex: 0 0 220px;
 }
 
-
 .categories-article {
   flex: 0 0 220px;
   background-color: var(--card-light);
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+body.dark-mode .categories-article {
+  background-color: var(--card-dark);
 }
 
 .brands-article {
@@ -209,11 +252,6 @@ body.dark-mode .brands-article {
 
 body.dark-mode .brand-list li {
   border-bottom: 1px solid #444;
-}
-
-
-body.dark-mode .categories-article {
-  background-color: var(--card-dark);
 }
 
 .category-list {

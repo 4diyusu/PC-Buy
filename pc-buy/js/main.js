@@ -1,21 +1,20 @@
-// This will be for loading products dynamically or cart logic later
 console.log("Main.js loaded");
 
 function toggleMode() {
   document.body.classList.toggle("dark-mode");
 }
 
-// Open login modal (trigger manually for now)
+// Show login modal
 document.getElementById("openLoginBtn").addEventListener("click", function () {
-  document.getElementById("loginModal").style.display = "block";
+  document.getElementById("loginModal").style.display = "flex"; // Make sure your CSS uses flex
 });
 
-// Close modal
-document.getElementById("closeModal").addEventListener("click", function () {
-  document.getElementById("loginModal").style.display = "none";
+// Hide modal via close button
+document.querySelector(".modal-content").addEventListener("click", (e) => {
+  e.stopPropagation();
 });
 
-// Optional: Close when clicking outside the modal
+// Hide modal when clicking outside of modal-content
 window.addEventListener("click", function (event) {
   const modal = document.getElementById("loginModal");
   if (event.target === modal) {

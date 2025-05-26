@@ -1,96 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PC Buy - Home</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <header class="top-nav">
-  <div class="logo">
-    <img src="assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
-  </div>
-  <div class="search-container">
-    <input type="text" class="search-bar" placeholder="Search products..." />
-  </div>
-  <div class="nav-actions">
-    <button id="openLoginBtn">Login</button>
-    <button>Cart</button>
-    <button onclick="toggleMode()">🌙</button>
-  </div>
-</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PC Buy - Home</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="logo">
+        <img
+          src="assets/PCbuyLogoCropped.png"
+          alt="PC Buy Logo"
+          class="logo-img"
+        />
+      </div>
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Search products..."
+        />
+      </div>
+      <div class="nav-actions">
+        <button id="openLoginBtn">Login</button>
+        <button>Cart</button>
+        <button onclick="toggleMode()">🌙</button>
+      </div>
+    </header>
 
-
-  <main class="main-layout">
-    <div class="sidebar">
+    <main class="main-layout">
+      <div class="sidebar">
         <article class="categories-article">
-            <h3>Categories</h3>
-            <ul class="category-list">
-                <li>Processors</li>
-                <li>Graphics Cards</li>
-                <li>RAM</li>
-                <li>Storage</li>
-                <li>Motherboards</li>
-                <li>Power Supplies</li>
-            </ul>
+          <h3>Categories</h3>
+          <ul class="category-list">
+            <li>Processors</li>
+            <li>Graphics Cards</li>
+            <li>RAM</li>
+            <li>Storage</li>
+            <li>Motherboards</li>
+            <li>Power Supplies</li>
+          </ul>
         </article>
 
         <article class="brands-article">
-            <h3>Brands</h3>
-            <ul class="brand-list">
-                <li>MSI</li>
-                <li>Asus</li>
-                <li>AMD</li>
-                <li>Intel</li>
-                <li>Gigabyte</li>
-                <li>NVIDIA</li>
-            </ul>
+          <h3>Brands</h3>
+          <ul class="brand-list">
+            <li>MSI</li>
+            <li>Asus</li>
+            <li>AMD</li>
+            <li>Intel</li>
+            <li>Gigabyte</li>
+            <li>NVIDIA</li>
+          </ul>
         </article>
-        </div>
-
-
-    <article class="products-article">
-      <h2>Recommended Products</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <h4>Intel Core i7</h4>
-          <p>High performance processor.</p>
-          <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-          <h4>NVIDIA RTX 4070</h4>
-          <p>Next-gen graphics performance.</p>
-          <button>Add to Cart</button>
-        </div>
-        <!-- More product cards here -->
       </div>
-    </article>
-  </main>
+
+      <article class="products-article">
+        <h2>Recommended Products</h2>
+        <div class="product-grid">
+          <div class="product-card">
+            <h4>Intel Core i7</h4>
+            <p>High performance processor.</p>
+            <button>Add to Cart</button>
+          </div>
+          <div class="product-card">
+            <h4>NVIDIA RTX 4070</h4>
+            <p>Next-gen graphics performance.</p>
+            <button>Add to Cart</button>
+          </div>
+          <!-- More product cards here -->
+        </div>
+      </article>
+    </main>
 
     <!-- Login Modal -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
-      <h2>Login</h2>
-      <form id="loginForm">
-        <input type="email" placeholder="Email" required>
-        <input type="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-      </form>
-      <div class="form-links">
-        <label><a href="#">Forgot password?</a></label> |
-        <label><a href="#">Sign up</a></label>
+    <div class="modal" id="loginModal">
+      <div class="login-outer-box">
+        <div class="login-box">
+          <h2 class="login-title">Login</h2>
+          <hr />
+          <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required />
+
+            <button type="submit">Login</button>
+          </form>
+          <div class="login-links">
+            <p>Don't have an account? <a href="#">Register here</a></p>
+            <p>Forgot Password? <a href="#">Recover Password</a></p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <footer>
-    <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
-  </footer>
 
-  <script src="js/auth.js"></script>
-  <script src="js/main.js"></script>
-</body>
+
+    <footer>
+      <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
