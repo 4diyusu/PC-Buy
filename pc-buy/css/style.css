@@ -166,7 +166,7 @@ body.dark-mode .search-bar {
   width: 100%;
   margin-top: 20px;
   padding: 10px;
-  background-color: #52accc; /* original blue */
+  background-color: var(--primary-green);
   color: white;
   border: none;
   border-radius: 5px;
@@ -176,7 +176,7 @@ body.dark-mode .search-bar {
 }
 
 .login-box button:hover {
-  background-color: #409bb9;
+  background-color: var(--accent-green);
 }
 
 .login-links {
@@ -190,7 +190,7 @@ body.dark-mode .search-bar {
 }
 
 .login-links a {
-  color: #007BFF;
+  color: var(--primary-green);
   text-decoration: none;
 }
 
