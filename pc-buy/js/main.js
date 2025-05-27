@@ -21,3 +21,25 @@ window.addEventListener("click", function (event) {
     modal.style.display = "none";
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoLink = document.getElementById("logo-link");
+
+  if (logoLink) {
+    logoLink.addEventListener("click", function (event) {
+      // Check if current page is index.html (main menu)
+      const onMainPage =
+        window.location.pathname.endsWith("index.html") ||
+        window.location.pathname === "/" ||
+        window.location.pathname.endsWith("/pcbuy/index.html"); // adjust path if hosted in a folder
+
+      if (onMainPage) {
+        // Prevent default link behavior
+        event.preventDefault();
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      // Else, default behavior takes user to index.html
+    });
+  }
+});

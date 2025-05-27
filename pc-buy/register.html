@@ -1,23 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register - PC Buy</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <div style="max-width: 400px; margin: 50px auto; padding: 20px; background: #f4f4f4; border-radius: 8px;">
-    <h2 style="text-align: center;">Register</h2>
-    <form>
-      <input type="text" placeholder="Full Name" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
-      <input type="email" placeholder="Email" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
-      <input type="password" placeholder="Password" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
-      <input type="text" placeholder="Address" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-      <input type="text" placeholder="Phone Number" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-      <button type="submit" style="width: 100%; padding: 10px; background-color: #0077cc; color: white; border: none;">Register</button>
-    </form>
-    <p style="text-align: center; margin-top: 15px;">Already have an account? <a href="index.html">Login here</a></p>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - PC Buy</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="logo">
+        <a href="index.html" id="logo-link">
+          <img src="assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
+        </a>
+      </div>
+      <div class="create-account-title">
+        <h2>CREATE ACCOUNT</h2>
+        <hr />
+      </div>
+      <div class="nav-actions">
+        <button onclick="toggleMode()">🌙</button>
+      </div>
+    </header>
+
+    <main class="register-layout">
+      <div class="register-box">
+        <form id="registerForm">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required />
+
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm password" required />
+
+          <button type="submit">Register</button>
+        </form>
+        <div class="login-links">
+          <p>Already have an account? <a href="index.html">Login here</a></p>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
