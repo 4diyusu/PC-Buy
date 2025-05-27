@@ -43,3 +43,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// main.js
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
+
+  if (!productId) return;
+
+  fetch("products.json")
+    .then((res) => res.json())
+    .then((products) => {
+      const product = products.find((p) => p.id === productId);
+
+      if (!product) {
+        document.querySelector("main").innerHTML = "<p>Product not found.</p>";
+        return;
+      }
+
+      document.getElementById("product-title").textContent = product.title;
+      document.getElementById("product-description").textContent = product.description;
+      document.getElementById("product-price").textContent = `Price: ${product.price}`;
+      document.getElementById("product-stock").textContent = product.inStock ? "In Stock ✅" : "Out of Stock ❌";
+      document.getElementById("product-image").src = product.image;
+    })
+    .catch((err) => {
+      console.error("Error loading product:", err);
+    });
+});
+
+const stockElement = document.getElementById("product-stock");
+stockElement.textContent = product.inStock ? "In Stock ✅" : "Out of Stock ❌";
+if (!product.inStock) {
+  stockElement.classList.add("out-of-stock");
+}
