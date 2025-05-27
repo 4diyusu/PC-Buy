@@ -3,45 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register - PC Buy</title>
+    <title>PC Buy - Register</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- ========== Top Navigation ========== -->
     <header class="top-nav">
       <div class="logo">
-        <a href="index.html" id="logo-link">
+        <a href="index.html">
           <img src="assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
         </a>
       </div>
-      <div class="create-account-title">
-        <h2>CREATE ACCOUNT</h2>
-        <hr />
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search products..." />
       </div>
       <div class="nav-actions">
+        <button id="openLoginBtn">Login</button>
+        <button>Cart</button>
         <button onclick="toggleMode()">🌙</button>
       </div>
     </header>
 
+    <!-- ========== Registration Layout ========== -->
     <main class="register-layout">
       <div class="register-box">
+        <div class="register-title">
+          <h2>Create an Account</h2>
+          <hr />
+        </div>
+
         <form id="registerForm">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Enter your name" required />
+          <h3>Account Details</h3>
+          <label for="username">Username</label>
+          <input type="text" id="username" required />
 
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
+          <input type="email" id="email" required />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" required />
 
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" required />
+          <input type="password" id="password" required />
 
           <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" placeholder="Confirm password" required />
+          <input type="password" id="confirmPassword" required />
+
+          <p id="registerError"></p>
+
+          <h3>Address Information</h3>
+
+          <label for="address1">Address Line 1</label>
+          <input type="text" id="address1" required />
+
+          <label for="address2">Address Line 2</label>
+          <input type="text" id="address2" />
+
+          <label for="city">City</label>
+          <input type="text" id="city" required />
+
+          <label for="state">State/Province</label>
+          <select id="state" required>
+            <option value="">Select a state</option>
+            <option value="NCR">NCR</option>
+            <option value="Region IV-A">Region IV-A</option>
+            <option value="Region III">Region III</option>
+            <option value="Region VII">Region VII</option>
+          </select>
+
+          <label for="zip">Zip/Postal Code</label>
+          <input type="text" id="zip" required />
+
+          <label for="country">Country</label>
+          <select id="country" required>
+            <option value="">Select a country</option>
+            <option value="Philippines">Philippines</option>
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+          </select>
 
           <button type="submit">Register</button>
         </form>
-        <div class="login-links">
-          <p>Already have an account? <a href="index.html">Login here</a></p>
-        </div>
+
+        <p>Already have an account? <a href="index.html">Login here</a></p>
       </div>
     </main>
 
@@ -51,5 +95,6 @@
 
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/register.js"></script>
   </body>
 </html>
