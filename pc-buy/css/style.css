@@ -334,6 +334,22 @@ h3 {
 p {
   margin-top: 10px;
 }
+
+.nav-register-title {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-register-title h2 {
+  margin: 0;
+}
+
+.nav-register-title hr {
+  width: 50%;
+  margin: 5px auto 0;
+  border: 1px solid #ccc;
+}
+
 .register-layout {
   display: flex;
   flex-direction: column;
@@ -407,6 +423,24 @@ p {
 
 .address-row > div {
   flex: 1 1 48%;
+}
+
+.state-zip-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.state-zip-row .form-group {
+  flex: 1;
+}
+
+.state-zip-row select,
+.state-zip-row input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 #registerError {

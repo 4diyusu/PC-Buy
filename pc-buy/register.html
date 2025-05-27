@@ -11,15 +11,20 @@
     <header class="top-nav">
       <div class="logo">
         <a href="index.html">
-          <img src="assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
+          <img
+            src="assets/PCbuyLogoCropped.png"
+            alt="PC Buy Logo"
+            class="logo-img"
+          />
         </a>
       </div>
-      <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search products..." />
+      
+      <div class="nav-register-title">
+          <h2>Registration</h2>
+          <hr />
       </div>
+
       <div class="nav-actions">
-        <button id="openLoginBtn">Login</button>
-        <button>Cart</button>
         <button onclick="toggleMode()">🌙</button>
       </div>
     </header>
@@ -62,21 +67,42 @@
           <label for="city">City</label>
           <input type="text" id="city" required />
 
-          <label for="state">State/Province</label>
-          <select id="state" required>
-            <option value="">Select a state</option>
-            <option value="NCR">NCR</option>
-            <option value="Region IV-A">Region IV-A</option>
-            <option value="Region III">Region III</option>
-            <option value="Region VII">Region VII</option>
-          </select>
+          <div class="state-zip-row">
+            <div class="form-group">
+              <label for="state">State/Province</label>
+              <select id="state" required>
+                <option value="">Select</option>
+                <option value="region_I">Region I</option>
+                <option value="region_II">Region II</option>
+                <option value="region_III">Region III</option>
+                <option value="region_IV-A">Region IV-A</option>
+                <option value="region_V">Region V</option>
+                <option value="region_CAR">Region CAR</option>
+                <option value="region_NCR">Region NCR</option>
+                <option value="region_Mimaropa">Region Mimaropa</option>
+                <option value="region_VI">Region VI</option>
+                <option value="region_VII">Region VII</option>
+                <option value="region_VIII">Region VIII</option>
+                <option value="region_NIR">Region NIR</option>
+                <option value="region_IX">Region IX</option>
+                <option value="region_X">Region X</option>
+                <option value="region_XI">Region XI</option>
+                <option value="region_XII">Region XII</option>
+                <option value="region_XIII">Region XIII</option>
+                <option value="region_BARMM">Region BARMM</option>
+              </select>
+            </div>
 
-          <label for="zip">Zip/Postal Code</label>
-          <input type="text" id="zip" required />
+            <div class="form-group">
+              <label for="zip">Zip/Postal Code</label>
+              <input type="text" id="zip" required />
+            </div>
+          </div>
 
           <label for="country">Country</label>
           <select id="country" required>
             <option value="">Select a country</option>
+            <option value="Japan">Japan</option>
             <option value="Philippines">Philippines</option>
             <option value="United States">United States</option>
             <option value="Canada">Canada</option>
