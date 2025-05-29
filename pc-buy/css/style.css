@@ -528,6 +528,8 @@ p {
   min-height: 100vh;
   max-width: 1000px;
   margin: 0 auto;
+  margin-top: 15px;
+  border-radius: 10px;
 }
 
 .product-details-box {
@@ -624,14 +626,15 @@ p {
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
   max-width: 1000px;
   margin: 0 auto 40px auto;
+  color: #222;
 }
 
 .product-specs h3 {
   margin-top: 0;
   margin-bottom: 15px;
+  color: #222;
 }
 
 /* ========== Footer ========== */
