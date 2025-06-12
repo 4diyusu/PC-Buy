@@ -207,13 +207,19 @@ body.dark-mode .search-bar {
 /* ========== Main Layout ========== */
 .main-layout {
   display: flex;
+  flex-direction: column; 
   padding: 1rem;
-  gap: 1.5rem;
+  gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 /* ========== Sidebar Categories ========== */
+.top-section {
+  display: flex;
+  gap: 30px;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -331,7 +337,9 @@ body.dark-mode .product-card {
   padding: 20px;
   background-color: #f2f2f2;
   border-radius: 12px;
-  margin-top: 30px;
+  width: 100%;
+  display: block;
+  margin-top: 20px;
 }
 
 .brand-box-grid {
@@ -343,22 +351,44 @@ body.dark-mode .product-card {
 }
 
 .brand-box {
-  padding: 15px 30px;
-  background-color: #e0e0e0;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
+  background-color: #f0f0f0;
+  padding: 15px 25px;
   text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease;
 }
 
 .brand-box:hover {
   background-color: #d2d2d2;
 }
 
+body.dark-mode .brand-box-section {
+  background-color: var(--dark-bg);
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .brand-box-section h2 {
+  color: var(--dark-text);
+}
+
+body.dark-mode .brand-box {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .brand-box:hover {
+  background-color: #2c2c2c;
+}
+
 /* === All Products Section === */
 .all-products-section {
-  margin-top: 40px;
+  width: 100%;
+  display: block;
+  margin-top: 20px;
 }
 
 .all-products-section h2 {
