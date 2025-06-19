@@ -2,12 +2,12 @@ const express = require('express');
 const path = require('path');
 const app = express();
 require('dotenv').config();
-//const connectDB = require('./config/db');
-//connectDB();
+const connectDB = require('./config/db');
+connectDB();
 
 
 const PORT = process.env.PORT || 3000;
-//const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 
 // Set EJS as templating engine
