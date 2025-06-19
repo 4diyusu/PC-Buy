@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PC Buy - Home</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="logo">
+      <a href="/">
+        <img src="/assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
+      </a>
+    </div>
+    <div class="search-container">
+      <input type="text" class="search-bar" placeholder="Search products..." />
+    </div>
+    <div class="nav-actions">
+      <button id="openLoginBtn">Login</button>
+      <button>Cart</button>
+      <button onclick="toggleMode()">🌙</button>
+    </div>
+  </header>
+
+  <main class="main-layout">
+    <section class="top-section">
+      <div class="sidebar">
+        <article class="categories-article">
+          <h3>Categories</h3>
+          <ul class="category-list">
+            <li>Processors</li>
+            <li>Graphics Cards</li>
+            <li>RAM</li>
+            <li>Storage</li>
+            <li>Motherboards</li>
+            <li>Power Supplies</li>
+          </ul>
+        </article>
+
+        <article class="brands-article">
+          <h3>Brands</h3>
+          <ul class="brand-list">
+            <li>MSI</li>
+            <li>Asus</li>
+            <li>AMD</li>
+            <li>Intel</li>
+            <li>Gigabyte</li>
+            <li>NVIDIA</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="products-article">
+        <h2>Recommended Products</h2>
+        <div class="product-grid">
+          <% const recommendedProducts = [
+            { name: 'Intel Core i7', desc: 'High performance processor.', id: 'intel-i7' },
+            { name: 'NVIDIA RTX 4070', desc: 'Next-gen graphics performance.', id: 'rtx-4070' }
+          ]; 
+          for (let i = 0; i < 4; i++) {
+            recommendedProducts.forEach(p => { %>
+              <div class="product-card">
+                <h4><%= p.name %></h4>
+                <p><%= p.desc %></p>
+                <button onclick="location.href='/product?id=<%= p.id %>'">View Product</button>
+              </div>
+          <% }) } %>
+        </div>
+      </article>
+    </section>
+
+    <section class="brand-box-section">
+      <h2>Shop by Brand</h2>
+      <div class="brand-box-grid">
+        <% ['MSI', 'Gigabyte', 'ASUS', 'Intel', 'AMD', 'NVIDIA'].forEach(brand => { %>
+          <div class="brand-box" onclick="location.href='/brand?name=<%= brand %>'"><%= brand %></div>
+        <% }); %>
+      </div>
+    </section>
+
+    <section class="all-products-section">
+      <h2>All Products</h2>
+      <div class="product-grid">
+        <% const allProducts = [
+          { name: 'ASUS TUF B660M', desc: 'Durable motherboard with WiFi support.', id: 'asus-b660m' },
+          { name: 'MSI MAG B550', desc: 'Mid-range board for Ryzen CPUs.', id: 'msi-b550' }
+        ];
+        allProducts.forEach(p => { %>
+          <div class="product-card">
+            <h4><%= p.name %></h4>
+            <p><%= p.desc %></p>
+            <button onclick="location.href='/product?id=<%= p.id %>'">View Product</button>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+  </main>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="login-outer-box">
+      <div class="login-box">
+        <h2 class="login-title">Login</h2>
+        <hr />
+        <form id="loginForm">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="submit">Login</button>
+        </form>
+        <div class="login-links">
+          <p>Don't have an account? <a href="/register">Register here</a></p>
+          <p>Forgot Password? <a href="#">Recover Password</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

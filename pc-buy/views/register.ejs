@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PC Buy - Register</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- ========== Top Navigation ========== -->
+  <header class="top-nav">
+    <div class="logo">
+      <a href="/">
+        <img src="/assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
+      </a>
+    </div>
+
+    <div class="nav-register-title">
+      <h2>Registration</h2>
+      <hr />
+    </div>
+
+    <div class="nav-actions">
+      <button onclick="toggleMode()">🌙</button>
+    </div>
+  </header>
+
+  <!-- ========== Registration Layout ========== -->
+  <main class="register-layout">
+    <div class="register-box">
+      <div class="register-title">
+        <h2>Create an Account</h2>
+        <hr />
+      </div>
+
+      <form id="registerForm">
+        <h3>Account Details</h3>
+        <label for="username">Username</label>
+        <input type="text" id="username" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" required />
+
+        <p id="registerError"></p>
+
+        <h3>Address Information</h3>
+
+        <label for="address1">Address Line 1</label>
+        <input type="text" id="address1" required />
+
+        <label for="address2">Address Line 2</label>
+        <input type="text" id="address2" />
+
+        <label for="city">City</label>
+        <input type="text" id="city" required />
+
+        <div class="state-zip-row">
+          <div class="form-group">
+            <label for="state">State/Province</label>
+            <select id="state" required>
+              <option value="">Select</option>
+              <option value="region_I">Region I</option>
+              <option value="region_II">Region II</option>
+              <option value="region_III">Region III</option>
+              <option value="region_IV-A">Region IV-A</option>
+              <option value="region_V">Region V</option>
+              <option value="region_CAR">Region CAR</option>
+              <option value="region_NCR">Region NCR</option>
+              <option value="region_Mimaropa">Region Mimaropa</option>
+              <option value="region_VI">Region VI</option>
+              <option value="region_VII">Region VII</option>
+              <option value="region_VIII">Region VIII</option>
+              <option value="region_NIR">Region NIR</option>
+              <option value="region_IX">Region IX</option>
+              <option value="region_X">Region X</option>
+              <option value="region_XI">Region XI</option>
+              <option value="region_XII">Region XII</option>
+              <option value="region_XIII">Region XIII</option>
+              <option value="region_BARMM">Region BARMM</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="zip">Zip/Postal Code</label>
+            <input type="text" id="zip" required />
+          </div>
+        </div>
+
+        <label for="country">Country</label>
+        <select id="country" required>
+          <option value="">Select a country</option>
+          <option value="Japan">Japan</option>
+          <option value="Philippines">Philippines</option>
+          <option value="United States">United States</option>
+          <option value="Canada">Canada</option>
+        </select>
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p>Already have an account? <a href="/">Login here</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
+  </footer>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/register.js"></script>
+</body>
+</html>
