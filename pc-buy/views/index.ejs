@@ -53,20 +53,15 @@
 
       <article class="products-article">
         <h2>Recommended Products</h2>
-        <div class="product-grid">
-          <% const recommendedProducts = [
-            { name: 'Intel Core i7', desc: 'High performance processor.', id: 'intel-i7' },
-            { name: 'NVIDIA RTX 4070', desc: 'Next-gen graphics performance.', id: 'rtx-4070' }
-          ]; 
-          for (let i = 0; i < 4; i++) {
-            recommendedProducts.forEach(p => { %>
-              <div class="product-card">
-                <h4><%= p.name %></h4>
-                <p><%= p.desc %></p>
-                <button onclick="location.href='/product?id=<%= p.id %>'">View Product</button>
-              </div>
-          <% }) } %>
-        </div>
+            <div class="product-grid">
+            <% recommendedProducts.forEach(p => { %>
+                <div class="product-card">
+                <h4><%= p.title %></h4>
+                <p><%= p.description %></p>
+                <button onclick="location.href='/product?id=<%= p._id %>'">View Product</button>
+                </div>
+            <% }); %>
+            </div>
       </article>
     </section>
 
@@ -80,20 +75,16 @@
     </section>
 
     <section class="all-products-section">
-      <h2>All Products</h2>
-      <div class="product-grid">
-        <% const allProducts = [
-          { name: 'ASUS TUF B660M', desc: 'Durable motherboard with WiFi support.', id: 'asus-b660m' },
-          { name: 'MSI MAG B550', desc: 'Mid-range board for Ryzen CPUs.', id: 'msi-b550' }
-        ];
-        allProducts.forEach(p => { %>
-          <div class="product-card">
-            <h4><%= p.name %></h4>
-            <p><%= p.desc %></p>
-            <button onclick="location.href='/product?id=<%= p.id %>'">View Product</button>
-          </div>
+        <h2>All Products</h2>
+        <div class="product-grid">
+        <% allProducts.forEach(p => { %>
+            <div class="product-card">
+            <h4><%= p.title %></h4>
+            <p><%= p.description %></p>
+            <button onclick="location.href='/product?id=<%= p._id %>'">View Product</button>
+            </div>
         <% }); %>
-      </div>
+        </div>
     </section>
   </main>
 
