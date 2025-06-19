@@ -16,7 +16,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('index'); // loads views/index.ejs
 });
 
 app.get('/register', (req, res) => {
@@ -29,8 +28,21 @@ app.get('/product', (req, res) => {
   });
 });
 
+//TEMPORARY CODE DELETE AFTER
+const seedRoute = require('./routes/seed');
+app.use(seedRoute);
+
 //Start Server & Browser
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
   open(`http://localhost:${PORT}`);
 });
+
+
+
+
+
+
+
+
+
