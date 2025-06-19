@@ -4,11 +4,8 @@ const app = express();
 require('dotenv').config();
 const connectDB = require('./config/db');
 connectDB();
-
-
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI;
-
+const open = require('open').default;
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
@@ -32,7 +29,8 @@ app.get('/product', (req, res) => {
   });
 });
 
-// Start server
+//Start Server & Browser
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  open(`http://localhost:${PORT}`);
 });
