@@ -22,3 +22,5 @@ const productSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);
+
+//this is test 1 2 3
