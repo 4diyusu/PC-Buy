@@ -28,7 +28,7 @@ app.get('/product', (req, res) => {
   });
 });
 
-//TEMPORARY CODE
+//TEMPORARY CODE DELETE AFTER
 const seedRoute = require('./routes/seed');
 app.use(seedRoute);
 
