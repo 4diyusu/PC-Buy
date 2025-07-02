@@ -1,62 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title><%= product?.title || 'Product Details' %></title>
-  <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-  <header class="top-nav">
-    <div class="logo">
-      <a href="/">
-        <img src="/assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
-      </a>
-    </div>
-    <div class="nav-register-title">
-      <h2>Product Details</h2>
-      <hr />
-    </div>
-    <div class="nav-actions">
-      <button onclick="toggleMode()">🌙</button>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= product.title || 'Product Details' %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="logo">
+        <a href="/">
+          <img
+            src="/assets/PCbuyLogoCropped.png"
+            alt="PC Buy Logo"
+            class="logo-img"
+          />
+        </a>
+      </div>
+      <div class="nav-register-title">
+        <h2>Product Details</h2>
+        <hr />
+      </div>
+      <div class="nav-actions">
+        <button onclick="toggleMode()">🌙</button>
+      </div>
+    </header>
 
-  <main class="product-details-layout">
-    <div class="product-details-box">
-      <img
-        class="product-img"
-        src="<%= product.image %>"
-        alt="Product Image"
-      />
+    <main class="product-details-layout">
+      <div class="product-details-box">
+        <img
+          class="product-img"
+          src="<%= product.image || '/assets/placeholder.png' %>"
+          alt="<%= product.title || 'Product Image' %>"
+        />
 
-      <div class="product-info">
-        <h1><%= product.title %></h1>
-        <p><%= product.shortDescription %></p>
-        <p><strong>Price: </strong>$<%= product.price %></p>
-        <p class="<%= product.inStock ? 'in-stock' : 'out-of-stock' %>">
-          <%= product.inStock ? 'In Stock' : 'Out of Stock' %>
-        </p>
+        <div class="product-info">
+          <h1><%= product.title || 'No Title Available' %></h1>
+          <p><%= product.shortDescription || 'No description available.' %></p>
+          <p>
+            <strong>Price: </strong>₱<%= product.price ?
+            product.price.toLocaleString() : 'N/A' %>
+          </p>
+          <p class="<%= product.inStock ? 'in-stock' : 'out-of-stock' %>">
+            <%= product.inStock ? 'In Stock' : 'Out of Stock' %>
+          </p>
 
-        <div class="product-buttons">
-          <button class="add-to-cart-btn">Add to Cart</button>
-          <button class="buy-now-btn">Buy Now</button>
+          <div class="product-buttons">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="product-specs">
-      <h3>Product Specifications</h3>
-      <p><%= product.specs %></p>
-    </div>
-  </main>
+      <div class="product-specs">
+        <h3>Product Specifications</h3>
+        <p><%= product.specs || 'No specifications available.' %></p>
+      </div>
+    </main>
 
-  <footer>
-    <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
-  </footer>
+    <footer>
+      <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
+    </footer>
 
-  <script src="/js/product.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="/js/main.js"></script>
-</body>
+    <script src="/js/product.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
 </html>

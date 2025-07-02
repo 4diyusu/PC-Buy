@@ -53,14 +53,15 @@
 
       <article class="products-article">
         <h2>Recommended Products</h2>
-            <div class="product-grid">
-            <% recommendedProducts.forEach(p => { %>
-                <div class="product-card">
-                <h4><%= p.title %></h4>
-                <p><%= p.description %></p>
-                <button onclick="location.href='/product?id=<%= p._id %>'">View Product</button>
-                </div>
+        <div class="product-grid">
+          <% recommendedProducts.forEach(p => { %>
+            <div class="product-card">
+              <h4><%= p.title %></h4>
+              <p><%= p.description %></p>
+              <button onclick="location.href='/product?id=<%= p._id %>'">View Product</button>
             </div>
+          <% }); %>
+        </div>
       </article>
     </section>
 
@@ -68,22 +69,24 @@
       <h2>Shop by Brand</h2>
       <div class="brand-box-grid">
         <% ['MSI', 'Gigabyte', 'ASUS', 'Intel', 'AMD', 'NVIDIA'].forEach(brand => { %>
-          <div class="brand-box" onclick="location.href='/brand?name=<%= brand %>'"><%= brand %></div>
+          <div class="brand-box" onclick="location.href='/brand?name=<%= brand %>'">
+            <%= brand %>
+          </div>
         <% }); %>
       </div>
     </section>
 
     <section class="all-products-section">
-        <h2>All Products</h2>
-        <div class="product-grid">
+      <h2>All Products</h2>
+      <div class="product-grid">
         <% allProducts.forEach(p => { %>
-            <div class="product-card">
+          <div class="product-card">
             <h4><%= p.title %></h4>
             <p><%= p.description %></p>
             <button onclick="location.href='/product?id=<%= p._id %>'">View Product</button>
-            </div>
+          </div>
         <% }); %>
-        </div>
+      </div>
     </section>
   </main>
 

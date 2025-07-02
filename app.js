@@ -6,6 +6,7 @@ const path = require('path');
 const app = express();
 require('dotenv').config();
 const open = require('open').default;
+const mongoose = require("mongoose");
 
 // ─────────────────────────────────────────────────────────────
 // MongoDB Connection
@@ -32,30 +33,24 @@ const Product = require('./models/product');
 // ─────────────────────────────────────────────────────────────
 
 // Home page (placeholder)
-app.get('/', (req, res) => {
-  res.render('index'); // Ensure you have views/index.ejs or change this
-});
-
-// Register page
-app.get('/register', (req, res) => {
-  res.render('register');
-});
-
-// List all products
-app.get('/products', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
-    const products = await Product.find();
-    res.render('products', { products });
-  } catch (err) {
-    console.error('Error fetching products:', err);
+    const allProducts = await Product.find();
+    const recommendedProducts = allProducts.slice(0, 4);
+
+    res.render('index', { allProducts, recommendedProducts });
+  } catch (error) {
+    console.error('Error loading homepage products:', error);
     res.status(500).send('Server Error');
   }
 });
 
-// Individual product view
-app.get('/products/:id', async (req, res) => {
+//Products
+app.get('/product', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const productId = req.query.id;
+
+    const product = await Product.findById(productId);
     if (!product) return res.status(404).send('Product not found');
 
     const productView = {
@@ -70,6 +65,23 @@ app.get('/products/:id', async (req, res) => {
     res.render('product', { product: productView });
   } catch (err) {
     console.error('Error fetching product:', err);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// Register page
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+// List all products
+app.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.render('products', { products });
+  } catch (err) {
+    console.error('Error fetching products:', err);
     res.status(500).send('Server Error');
   }
 });

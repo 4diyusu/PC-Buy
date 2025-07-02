@@ -1,26 +1,12 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
+  title: String,
   description: String,
-  price: {
-    type: Number,
-    required: true
-  },
-  images: {
-    type: [String],
-    default: []
-  },
-  instock: {
-    type: Boolean,
-    default: true
-  },
-  fullSpecs: String
-}, { timestamps: true });
+  price: Number,
+  instock: Boolean,
+  fullSpecs: String,
+  recommended: Boolean     // optional: add later for real "recommended" support
+});
 
 module.exports = mongoose.model('Product', productSchema);
-
-//this is test 1 2 3

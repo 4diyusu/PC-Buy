@@ -16,3 +16,12 @@ window.addEventListener("click", (e) => {
     loginModal.style.display = "none";
   }
 });
+
+document.getElementById("openLoginBtn").addEventListener("click", function () {
+  document.getElementById("loginModal").style.display = "block";
+});
+
+window.addEventListener("click", function (e) {
+  const modal = document.getElementById("loginModal");
+  if (e.target === modal) modal.style.display = "none";
+});
