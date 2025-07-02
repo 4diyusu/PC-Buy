@@ -1,0 +1,174 @@
+/* ========== Product Template ========== */
+.product-page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.product-container {
+  display: flex;
+  max-width: 1000px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  gap: 30px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.product-image {
+  width: 100%;
+  max-width: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.product-details {
+  flex: 1;
+  min-width: 280px;
+}
+
+.product-title {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.product-description {
+  margin-bottom: 20px;
+}
+
+.product-price {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.product-stock {
+  margin-bottom: 20px;
+}
+
+.in-stock {
+  color: green;
+  font-weight: bold;
+}
+
+.out-of-stock {
+  color: red;
+  font-weight: bold;
+}
+
+/* ========== Product Details Page ========== */
+.product-details-layout {
+  padding: 30px;
+  background: #f0f0f0;
+  min-height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+.product-details-box {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+.product-img {
+  width: 300px;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  background: white;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-info h1 {
+  margin-top: 0;
+  font-size: 2rem;
+  color: #222;
+}
+
+.product-info p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-info p strong {
+  font-weight: 700;
+}
+
+#product-stock {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+#product-stock.in-stock {
+  color: green;
+}
+
+#product-stock.out-of-stock {
+  color: red;
+}
+
+.product-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.product-buttons button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.product-buttons .add-to-cart-btn {
+  background-color: #4caf50;
+}
+
+.product-buttons .add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+
+.product-buttons .buy-now-btn {
+  background-color: #96d809;
+  color: #222;
+}
+
+.product-buttons .buy-now-btn:hover {
+  background-color: #7cb106;
+}
+
+.product-specs {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  max-width: 1000px;
+  margin: 0 auto 40px auto;
+  color: #222;
+}
+
+.product-specs h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #222;
+}

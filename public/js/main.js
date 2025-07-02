@@ -1,46 +1,45 @@
 console.log("Main.js loaded");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const darkMode = localStorage.getItem('darkMode');
-  if (darkMode === 'enabled') {
-    document.body.classList.add('dark-mode');
-  }
-});
-
-function toggleMode() {
-  document.body.classList.toggle("dark-mode");
-
-  const isDark = document.body.classList.contains('dark-mode');
-  localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
-}
-
-// Show login modal
-document.getElementById("openLoginBtn").addEventListener("click", function () {
-  document.getElementById("loginModal").style.display = "flex"; 
-});
-
-// Stop click inside modal box from closing the modal
-document.querySelector(".login-outer-box").addEventListener("click", (e) => {
-  e.stopPropagation();
-});
-
-// Hide modal when clicking outside of modal-content
-window.addEventListener("click", function (event) {
-  const modal = document.getElementById("loginModal");
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-});
-
+// ========== Main Initialization ==========
 document.addEventListener("DOMContentLoaded", () => {
-  const logoLink = document.getElementById("logo-link");
+  // ========== Dark Mode ==========
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "enabled") {
+    document.body.classList.add("dark-mode");
+  }
 
+  const toggleBtn = document.querySelector("[onclick='toggleMode()']");
+  toggleBtn?.addEventListener("click", toggleMode);
+
+  function toggleMode() {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+  }
+
+  // ========== Login Modal ==========
+  const loginModal = document.getElementById("loginModal");
+  const openLoginBtn = document.getElementById("openLoginBtn");
+  const loginBox = document.querySelector(".login-box");
+
+  openLoginBtn?.addEventListener("click", () => {
+    loginModal.style.display = "flex";
+  });
+
+  loginModal?.addEventListener("click", (e) => {
+    if (!loginBox.contains(e.target)) {
+      loginModal.style.display = "none";
+    }
+  });
+
+  // ========== Logo Scroll (Home) ==========
+  const logoLink = document.getElementById("logo-link");
   if (logoLink) {
     logoLink.addEventListener("click", function (event) {
       const onMainPage =
-        window.location.pathname.endsWith("index.html") ||
         window.location.pathname === "/" ||
-        window.location.pathname.endsWith("/pcbuy/index.html"); 
+        window.location.pathname.endsWith("/index") ||
+        window.location.pathname.endsWith("/index.html");
 
       if (onMainPage) {
         event.preventDefault();
@@ -48,38 +47,54 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
 
-// main.js
-document.addEventListener("DOMContentLoaded", () => {
+  // ========== Hamburger Sidebar ==========
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  hamburgerBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('show');
+    overlay.classList.toggle('show');
+  });
+
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('show');
+    overlay.classList.remove('show');
+  });
+
+
+  // Optional: Close sidebar if Escape key is pressed
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      sidebar?.classList.remove("show");
+      overlay?.classList.remove("show");
+    }
+  });
+
+  // ========== Product Page Population (Optional JSON fallback) ==========
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
+  if (productId) {
+    fetch("products.json")
+      .then((res) => res.json())
+      .then((products) => {
+        const product = products.find((p) => p.id === productId);
+        if (!product) {
+          document.querySelector("main").innerHTML = "<p>Product not found.</p>";
+          return;
+        }
 
-  if (!productId) return;
-
-  fetch("products.json")
-    .then((res) => res.json())
-    .then((products) => {
-      const product = products.find((p) => p.id === productId);
-
-      if (!product) {
-        document.querySelector("main").innerHTML = "<p>Product not found.</p>";
-        return;
-      }
-
-      document.getElementById("product-title").textContent = product.title;
-      document.getElementById("product-description").textContent = product.description;
-      document.getElementById("product-price").textContent = `Price: ${product.price}`;
-      document.getElementById("product-stock").textContent = product.inStock ? "In Stock ✅" : "Out of Stock ❌";
-      document.getElementById("product-image").src = product.image;
-    })
-    .catch((err) => {
-      console.error("Error loading product:", err);
-    });
+        document.getElementById("product-title").textContent = product.title;
+        document.getElementById("product-description").textContent = product.description;
+        document.getElementById("product-price").textContent = `Price: ${product.price}`;
+        document.getElementById("product-stock").textContent = product.inStock
+          ? "In Stock ✅"
+          : "Out of Stock ❌";
+        document.getElementById("product-image").src = product.image;
+      })
+      .catch((err) => {
+        console.error("Error loading product:", err);
+      });
+  }
 });
-
-const stockElement = document.getElementById("product-stock");
-stockElement.textContent = product.inStock ? "In Stock ✅" : "Out of Stock ❌";
-if (!product.inStock) {
-  stockElement.classList.add("out-of-stock");
-}
