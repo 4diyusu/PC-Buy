@@ -1,4 +1,4 @@
-document.getElementById("registerForm").addEventListener("submit", function (e) {
+document.getElementById("registerForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const email = document.getElementById("email").value.trim();
@@ -12,6 +12,7 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[0-9]{10,15}$/;
 
+  // Client-side validation
   if (!emailRegex.test(email)) {
     errorLabel.textContent = "Invalid email format.";
     return;
@@ -27,9 +28,30 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     return;
   }
 
-  // If all validations pass
-  errorLabel.textContent = ""; // clear errors
+  errorLabel.textContent = ""; // clear error if all pass
 
-  // You can now proceed to send the data to the server or show a success message
-  alert("Registration successful!"); // Replace with actual logic
+  // Prepare form data
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch("/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.text();
+
+    if (response.ok) {
+      alert("✅ " + result);
+      form.reset();
+    } else {
+      alert("❌ " + result);
+    }
+  } catch (err) {
+    console.error("❌ Registration fetch error:", err);
+    alert("Server error. Please try again.");
+  }
 });
