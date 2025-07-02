@@ -1,0 +1,17 @@
+/* ========== Main Layout ========== */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== Top Section Flex ========== */
+.top-section {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}

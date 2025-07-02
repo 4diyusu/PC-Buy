@@ -1,0 +1,25 @@
+/* ========== Global Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== Root Variables ========== */
+:root {
+  --primary-green: #008042;
+  --accent-green: #006e38;
+  --light-bg: #f7f7f7;
+  --light-text: #1c1c1e;
+  --dark-bg: #1c1c1e;
+  --dark-text: #e5e5e5;
+  --card-light: #e6e6e6;
+  --card-dark: #2a2a2d;
+}
+
+/* ========== Typography & Background ========== */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}

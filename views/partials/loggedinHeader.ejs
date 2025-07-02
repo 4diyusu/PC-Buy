@@ -1,7 +1,11 @@
 <header class="top-nav">
   <div class="logo">
     <a href="/">
-      <img src="/assets/PCbuyLogoCropped.png" alt="PC Buy Logo" class="logo-img" />
+      <img
+        src="/assets/PCbuyLogoCropped.png"
+        alt="PC Buy Logo"
+        class="logo-img"
+      />
     </a>
   </div>
 
@@ -10,44 +14,22 @@
   </div>
 
   <div class="nav-actions">
-    <button id="cartBtn">Cart</button>
     <button onclick="toggleMode()">🌙</button>
-    <button id="menuToggle">☰</button>
+    <button id="hamburgerBtn" class="hamburger-icon">☰</button>
   </div>
-</header>
 
-<!-- 🆕 Hamburger Sidebar Menu -->
-<div class="sidebar-menu" id="sidebarMenu">
-  <div class="sidebar-content">
-    <h3>My Account</h3>
-    <ul>
-      <li><a href="/profile">Profile Details</a></li>
-      <li><a href="/update-account">Update Account</a></li>
-      <li><a href="/transactions">Transaction History</a></li>
-      <li><a href="/track-order">Track an Order</a></li>
-      <li><a href="/wishlist">Wishlist</a></li>
-    </ul>
-
+  <div id="sidebar" class="sidebar">
+    <button class="sidebar-btn">Profile Details</button>
+    <button class="sidebar-btn">Update Account</button>
+    <button class="sidebar-btn">Transaction History</button>
+    <button class="sidebar-btn">Track an Order</button>
+    <button class="sidebar-btn">Wishlist</button>
     <hr />
-
-    <ul>
-      <li><a href="/help">Help Center</a></li>
-    </ul>
+    <button class="sidebar-btn">Help Center</button>
+    <form action="/logout" method="POST">
+      <button type="submit" class="sidebar-btn logout-btn">Logout</button>
+    </form>
   </div>
-</div>
 
-<!-- 🆕 Toggle Menu Script -->
-<script>
-  const toggleBtn = document.getElementById("menuToggle");
-  const sidebar = document.getElementById("sidebarMenu");
-
-  toggleBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("open");
-  });
-
-  window.addEventListener("click", (e) => {
-    if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
-      sidebar.classList.remove("open");
-    }
-  });
-</script>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+</header>

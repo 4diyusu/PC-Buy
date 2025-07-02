@@ -1,0 +1,61 @@
+/* ========== Dark Theme ========== */
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+body.dark-mode .login-outer-box,
+body.dark-mode .login-box,
+body.dark-mode .register-box {
+  background-color: var(--card-dark);
+  color: var(--dark-text);
+}
+
+body.dark-mode .top-nav {
+  background-color: var(--card-dark);
+}
+
+body.dark-mode .search-bar {
+  background-color: var(--card-dark);
+  color: var(--dark-text);
+  border: 1px solid #555;
+}
+
+body.dark-mode .categories-article,
+body.dark-mode .brands-article,
+body.dark-mode .products-article,
+body.dark-mode .product-card {
+  background-color: var(--card-dark);
+}
+
+body.dark-mode .brand-box-section {
+  background-color: var(--dark-bg);
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .brand-box-section h2 {
+  color: var(--dark-text);
+}
+
+body.dark-mode .brand-box {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .brand-box:hover {
+  background-color: #2c2c2c;
+}
+
+body.dark-mode .brand-list li,
+body.dark-mode .category-list li {
+  border-bottom: 1px solid #444;
+}
+
+body.dark-mode .product-card {
+  border: 1px solid #444;
+}
+
+body.dark-mode footer {
+  background-color: var(--card-dark);
+}
