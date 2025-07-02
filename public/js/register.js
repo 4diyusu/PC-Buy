@@ -27,8 +27,9 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     errorLabel.textContent = "Passwords do not match.";
     return;
   }
-
-  errorLabel.textContent = ""; // clear error if all pass
+  
+  // Clear error if all pass
+  errorLabel.textContent = "";
 
   // Prepare form data
   const form = e.target;
@@ -51,7 +52,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
       alert("❌ " + result);
     }
   } catch (err) {
-    console.error("❌ Registration fetch error:", err);
+    console.error("Registration fetch error:", err);
     alert("Server error. Please try again.");
   }
 });

@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
   price: Number,
   instock: Boolean,
   fullSpecs: String,
-  recommended: Boolean     // optional: add later for real "recommended" support
+  recommended: Boolean
 });
 
 module.exports = mongoose.model('Product', productSchema);
