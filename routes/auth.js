@@ -77,14 +77,41 @@ router.post('/register', async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    console.log('✅ User registered:', savedUser.email);
+    console.log('User registered:', savedUser.email);
 
     // Step 5: Send success response
     res.status(201).send('User registered successfully.');
   } catch (err) {
-    console.error('❌ Registration failed:', err);
+    console.error('Registration failed:', err);
     res.status(500).send('Server error. Please try again later.');
   }
 });
+
+// POST /login
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // 1. Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).send('Invalid email or password.');
+    }
+
+    // 2. Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).send('Invalid email or password.');
+    }
+
+    // 3. If successful
+    console.log(`✅ Login successful for: ${user.username}`);
+    res.status(200).send('Login successful!');
+  } catch (err) {
+    console.error('Login error:', err.message);
+    res.status(500).send('Server error. Please try again later.');
+  }
+});
+
 
 module.exports = router;

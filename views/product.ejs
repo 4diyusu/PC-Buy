@@ -7,24 +7,8 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <header class="top-nav">
-      <div class="logo">
-        <a href="/">
-          <img
-            src="/assets/PCbuyLogoCropped.png"
-            alt="PC Buy Logo"
-            class="logo-img"
-          />
-        </a>
-      </div>
-      <div class="nav-register-title">
-        <h2>Product Details</h2>
-        <hr />
-      </div>
-      <div class="nav-actions">
-        <button onclick="toggleMode()">🌙</button>
-      </div>
-    </header>
+    <!-- Header -->
+    <%- include('partials/header') %>
 
     <main class="product-details-layout">
       <div class="product-details-box">
@@ -58,9 +42,11 @@
       </div>
     </main>
 
-    <footer>
-      <p>Contact us at support@pcbuy.com | CKK Devs Co. © 2025</p>
-    </footer>
+    <!-- Login modal -->
+    <%- include('partials/loginModal') %>
+
+    <!-- Footer -->
+    <%- include('partials/footer') %>
 
     <script src="/js/product.js"></script>
     <script src="/js/auth.js"></script>

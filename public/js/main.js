@@ -16,7 +16,7 @@ function toggleMode() {
 
 // Show login modal
 document.getElementById("openLoginBtn").addEventListener("click", function () {
-  document.getElementById("loginModal").style.display = "flex"; // Make sure your CSS uses flex
+  document.getElementById("loginModal").style.display = "flex"; 
 });
 
 // Stop click inside modal box from closing the modal
@@ -37,19 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (logoLink) {
     logoLink.addEventListener("click", function (event) {
-      // Check if current page is index.html (main menu)
       const onMainPage =
         window.location.pathname.endsWith("index.html") ||
         window.location.pathname === "/" ||
-        window.location.pathname.endsWith("/pcbuy/index.html"); // adjust path if hosted in a folder
+        window.location.pathname.endsWith("/pcbuy/index.html"); 
 
       if (onMainPage) {
-        // Prevent default link behavior
         event.preventDefault();
-        // Scroll to top smoothly
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-      // Else, default behavior takes user to index.html
     });
   }
 });

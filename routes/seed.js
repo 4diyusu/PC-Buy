@@ -13,7 +13,7 @@ router.get('/seed-user', async (req, res) => {
     const testUser = new User({
       username: 'admin',
       email: 'admin@pcbuy.com',
-      password: 'admin123', // ⚠️ Plaintext for test only
+      password: 'admin123',
       phone: '09123456789',
       address: {
         address1: '123 Test Street',
@@ -26,9 +26,9 @@ router.get('/seed-user', async (req, res) => {
     });
 
     await testUser.save();
-    res.send('✅ Test user seeded!');
+    res.send('Test user seeded!');
   } catch (err) {
-    console.error('❌ Error seeding test user:', err);
+    console.error('Error seeding test user:', err);
     res.status(500).send('Error seeding user.');
   }
 });
