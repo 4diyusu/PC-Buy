@@ -3,24 +3,27 @@
 // ─────────────────────────────────────────────────────────────
 const express = require('express');
 const path = require('path');
-const app = express();
-require('dotenv').config();
 const open = require('open').default;
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // ─────────────────────────────────────────────────────────────
-// MongoDB Connection
+// Database Connection
 // ─────────────────────────────────────────────────────────────
 const connectDB = require('./config/db');
 connectDB();
 
 // ─────────────────────────────────────────────────────────────
-// App Settings
+// Middleware & View Engine
 // ─────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 3000;
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ─────────────────────────────────────────────────────────────
@@ -31,13 +34,17 @@ const Product = require('./models/product');
 // ─────────────────────────────────────────────────────────────
 // Routes
 // ─────────────────────────────────────────────────────────────
+const authRoutes = require('./routes/auth');
+const seedRoute = require('./routes/seed');
 
-// Home page (placeholder)
+app.use(authRoutes);
+app.use(seedRoute);
+
+// Home page
 app.get('/', async (req, res) => {
   try {
     const allProducts = await Product.find();
     const recommendedProducts = allProducts.slice(0, 4);
-
     res.render('index', { allProducts, recommendedProducts });
   } catch (error) {
     console.error('Error loading homepage products:', error);
@@ -45,12 +52,12 @@ app.get('/', async (req, res) => {
   }
 });
 
-//Products
+// Individual product page
 app.get('/product', async (req, res) => {
   try {
     const productId = req.query.id;
-
     const product = await Product.findById(productId);
+
     if (!product) return res.status(404).send('Product not found');
 
     const productView = {
@@ -69,13 +76,7 @@ app.get('/product', async (req, res) => {
   }
 });
 
-
-// Register page
-app.get('/register', (req, res) => {
-  res.render('register');
-});
-
-// List all products
+// All products listing
 app.get('/products', async (req, res) => {
   try {
     const products = await Product.find();
@@ -86,9 +87,10 @@ app.get('/products', async (req, res) => {
   }
 });
 
-// TEMP: Seed route (remove before production)
-const seedRoute = require('./routes/seed');
-app.use(seedRoute);
+// Register page (GET)
+app.get('/register', (req, res) => {
+  res.render('register');
+});
 
 // ─────────────────────────────────────────────────────────────
 // Server Start
