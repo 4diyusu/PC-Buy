@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <!-- Header -->
-    <%- include('partials/header') %>
+    <!--  Header (Dynamic based on login state) -->
+    <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
     <main class="product-details-layout">
       <div class="product-details-box">
@@ -22,8 +22,8 @@
           <h1><%= product.title || 'No Title Available' %></h1>
           <p><%= product.shortDescription || 'No description available.' %></p>
           <p>
-            <strong>Price: </strong>₱<%= product.price ?
-            product.price.toLocaleString() : 'N/A' %>
+            <strong>Price: </strong>
+            ₱<%= product.price ? product.price.toLocaleString() : 'N/A' %>
           </p>
           <p class="<%= product.inStock ? 'in-stock' : 'out-of-stock' %>">
             <%= product.inStock ? 'In Stock' : 'Out of Stock' %>
@@ -42,14 +42,16 @@
       </div>
     </main>
 
-    <!-- Login modal -->
+    <!--  Login Modal -->
     <%- include('partials/loginModal') %>
 
-    <!-- Footer -->
+    <!--  Footer -->
     <%- include('partials/footer') %>
 
+    <!-- Scripts -->
     <script src="/js/product.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/login.js"></script>
   </body>
 </html>

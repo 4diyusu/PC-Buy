@@ -41,12 +41,12 @@ router.post('/register', async (req, res) => {
     !cleanData.state || !cleanData.zip || !cleanData.country
   ) {
     console.warn('⚠️ Missing required fields');
-    return res.status(400).send('Please fill in all required fields.');
+    return res.status(400).json({ error: 'Please fill in all required fields.' });
   }
 
   if (cleanData.password !== cleanData.confirmPassword) {
     console.warn('⚠️ Passwords do not match');
-    return res.status(400).send('Passwords do not match.');
+    return res.status(400).json({ error: 'Passwords do not match.' });
   }
 
   try {
@@ -54,7 +54,7 @@ router.post('/register', async (req, res) => {
     const existingUser = await User.findOne({ email: cleanData.email });
     if (existingUser) {
       console.warn('⚠️ Email already registered:', cleanData.email);
-      return res.status(409).send('Email is already registered.');
+      return res.status(409).json({ error: 'Email is already registered.' });
     }
 
     // Step 3: Hash password
@@ -77,41 +77,43 @@ router.post('/register', async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    console.log('User registered:', savedUser.email);
+    console.log('✅ User registered:', savedUser.email);
 
-    // Step 5: Send success response
-    res.status(201).send('User registered successfully.');
+    res.status(201).json({ success: true, message: 'User registered successfully.' });
   } catch (err) {
-    console.error('Registration failed:', err);
-    res.status(500).send('Server error. Please try again later.');
+    console.error('❌ Registration failed:', err);
+    res.status(500).json({ error: 'Server error. Please try again later.' });
   }
 });
 
 // POST /login
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const email = req.body.email?.trim().toLowerCase();
+  const password = req.body.password;
 
   try {
     // 1. Check if the user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send('Invalid email or password.');
+      return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
     // 2. Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).send('Invalid email or password.');
+      return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
-    // 3. If successful
+    // 3. Store session
+    req.session.userId = user._id;
+    req.session.username = user.username;
+
     console.log(`✅ Login successful for: ${user.username}`);
-    res.status(200).send('Login successful!');
+    res.status(200).json({ success: true, message: 'Login successful!' });
   } catch (err) {
-    console.error('Login error:', err.message);
-    res.status(500).send('Server error. Please try again later.');
+    console.error('❌ Login error:', err.message);
+    res.status(500).json({ error: 'Server error. Please try again later.' });
   }
 });
-
 
 module.exports = router;

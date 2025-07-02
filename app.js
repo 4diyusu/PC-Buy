@@ -6,6 +6,7 @@ const path = require('path');
 const open = require('open').default;
 const mongoose = require('mongoose');
 require('dotenv').config();
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 🟡 Added session middleware
+app.use(session({
+  secret: 'pcbuy_secret_key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 } // 1 hour
+}));
+
 // ─────────────────────────────────────────────────────────────
 // Models
 // ─────────────────────────────────────────────────────────────
@@ -45,7 +54,11 @@ app.get('/', async (req, res) => {
   try {
     const allProducts = await Product.find();
     const recommendedProducts = allProducts.slice(0, 4);
-    res.render('index', { allProducts, recommendedProducts });
+
+    const isLoggedIn = !!req.session.userId;
+    const username = req.session.username || null;
+
+    res.render('index', { allProducts, recommendedProducts, isLoggedIn, username });
   } catch (error) {
     console.error('Error loading homepage products:', error);
     res.status(500).send('Server Error');
@@ -69,7 +82,10 @@ app.get('/product', async (req, res) => {
       specs: product.fullSpecs
     };
 
-    res.render('product', { product: productView });
+    const isLoggedIn = !!req.session.userId;
+    const username = req.session.username || null;
+
+    res.render('product', { product: productView, isLoggedIn, username });
   } catch (err) {
     console.error('Error fetching product:', err);
     res.status(500).send('Server Error');
@@ -80,16 +96,23 @@ app.get('/product', async (req, res) => {
 app.get('/products', async (req, res) => {
   try {
     const products = await Product.find();
-    res.render('products', { products });
+
+    const isLoggedIn = !!req.session.userId;
+    const username = req.session.username || null;
+
+    res.render('products', { products, isLoggedIn, username });
   } catch (err) {
     console.error('Error fetching products:', err);
     res.status(500).send('Server Error');
   }
 });
 
-// Register page (GET)
+// Register page
 app.get('/register', (req, res) => {
-  res.render('register');
+  const isLoggedIn = !!req.session.userId;
+  const username = req.session.username || null;
+
+  res.render('register', { isLoggedIn, username });
 });
 
 // ─────────────────────────────────────────────────────────────

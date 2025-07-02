@@ -1,27 +1,33 @@
-// Login Modal Logic
-const loginBtn = document.getElementById("loginBtn");
-const loginModal = document.getElementById("loginModal");
-const closeModal = document.getElementById("closeModal");
+// Login Modal Logic (safe for partial-based modal)
+document.addEventListener("DOMContentLoaded", () => {
+  const loginModal = document.getElementById("loginModal");
+  const openLoginBtn = document.getElementById("openLoginBtn");
+  const loginBtn = document.getElementById("loginBtn");
+  const closeModal = document.getElementById("closeModal");
 
-loginBtn.addEventListener("click", () => {
-  loginModal.style.display = "block";
-});
-
-closeModal.addEventListener("click", () => {
-  loginModal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-  if (e.target == loginModal) {
-    loginModal.style.display = "none";
+  function openModal() {
+    if (loginModal) loginModal.style.display = "block";
   }
-});
 
-document.getElementById("openLoginBtn").addEventListener("click", function () {
-  document.getElementById("loginModal").style.display = "block";
-});
+  function closeModalFunc() {
+    if (loginModal) loginModal.style.display = "none";
+  }
 
-window.addEventListener("click", function (e) {
-  const modal = document.getElementById("loginModal");
-  if (e.target === modal) modal.style.display = "none";
+  if (openLoginBtn) {
+    openLoginBtn.addEventListener("click", openModal);
+  }
+
+  if (loginBtn) {
+    loginBtn.addEventListener("click", openModal);
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener("click", closeModalFunc);
+  }
+
+  window.addEventListener("click", (e) => {
+    if (e.target === loginModal) {
+      closeModalFunc();
+    }
+  });
 });
