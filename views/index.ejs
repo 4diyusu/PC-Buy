@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <!-- Header -->
-    <%- include('partials/header') %>
+    <!--  Header (Dynamic based on login state) -->
+    <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
     <main class="main-layout">
       <section class="top-section">
@@ -61,7 +61,7 @@
           'NVIDIA'].forEach(function(brand) { %>
           <div
             class="brand-box"
-            onclick="location.href='/brand?name=<%- brand %>'"
+            onclick="location.href='/brand?name=<%= brand %>'"
           >
             <%= brand %>
           </div>
@@ -85,15 +85,15 @@
       </section>
     </main>
 
-    <!-- Login Modal -->
+    <!--  Login Modal -->
     <%- include('partials/loginModal') %>
 
-    <!-- Footer -->
+    <!--  Footer -->
     <%- include('partials/footer') %>
 
     <!-- Scripts -->
     <script src="/js/auth.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/login.js"></script>
+    <script src="/js/login.js" defer></script>
   </body>
 </html>

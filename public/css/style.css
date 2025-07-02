@@ -102,6 +102,51 @@ body.dark-mode .search-bar {
   background-color: var(--accent-green);
 }
 
+/* ========== Logged in Header ========== */
+
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #f8f8f8;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-menu.open {
+  right: 0;
+}
+
+.sidebar-menu .sidebar-content h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu ul li {
+  margin: 10px 0;
+}
+
+.sidebar-menu ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar-menu hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+
 /* ========== Modal Styles ========== */
 .modal {
   position: fixed;
@@ -110,34 +155,33 @@ body.dark-mode .search-bar {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  display: none; /* hidden by default */
+  display: none; /* Hidden by default */
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
 .modal.show {
-  display: flex; /* show modal */
+  display: flex; /* Show modal */
 }
 
 .login-outer-box {
-  background-color: #ffffff;
-  padding: 35px 40px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  width: 550px;
-  height: 560px;
-  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .login-box {
-  background-color: #e4e4e4; 
+  background-color: #e4e4e4;
   padding: 60px;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   width: 470px;
   height: 480px;
+  position: relative;
 }
 
 .login-title {
@@ -203,6 +247,7 @@ body.dark-mode .search-bar {
 .login-links a:hover {
   text-decoration: underline;
 }
+
 
 /* ========== Main Layout ========== */
 .main-layout {
