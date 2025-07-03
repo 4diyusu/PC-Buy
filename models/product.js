@@ -6,7 +6,10 @@ const productSchema = new mongoose.Schema({
   price: Number,
   instock: Boolean,
   fullSpecs: String,
-  recommended: Boolean
+  recommended: Boolean,
+  image: String
+
 });
 
 module.exports = mongoose.model('Product', productSchema);
+
