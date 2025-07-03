@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart - PC Buy</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/pages/cart.css" />
+  </head>
+  <body>
+    <!-- Header (based on login state) -->
+    <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header', {
+    page: 'cart' }) %>
+
+    <main class="cart-page container">
+      <h2>Your Cart</h2>
+
+      <% if (cartItems.length === 0) { %>
+      <p>Your cart is empty. <a href="/products">Browse products</a></p>
+      <% } else { %>
+      <section class="cart-items">
+        <% cartItems.forEach(item => { %>
+        <div class="cart-item">
+          <img src="<%= item.image %>" alt="<%= item.title %>" width="80" />
+          <div class="cart-info">
+            <h4><%= item.title %></h4>
+            <p>
+              ₱<%= item.price %> x <%= item.quantity %> =
+              <strong>₱<%= item.subtotal %></strong>
+            </p>
+          </div>
+        </div>
+        <% }) %>
+      </section>
+
+      <hr />
+
+      <section class="cart-summary">
+        <h3>Total: ₱<%= total %></h3>
+        <form action="/checkout" method="POST">
+          <button type="submit" class="btn btn-primary">
+            Proceed to Checkout
+          </button>
+        </form>
+      </section>
+      <% } %>
+    </main>
+
+    <!-- Footer -->
+    <%- include('partials/footer') %>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+  </body>
+</html>

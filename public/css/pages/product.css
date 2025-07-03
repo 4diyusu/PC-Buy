@@ -172,3 +172,7 @@
   margin-bottom: 15px;
   color: #222;
 }
+
+.inline-form {
+  display: inline;
+}

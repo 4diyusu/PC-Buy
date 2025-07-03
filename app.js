@@ -46,9 +46,11 @@ const User = require('./models/user');
 // ─────────────────────────────────────────────────────────────
 const authRoutes = require('./routes/auth');
 const seedRoute = require('./routes/seed');
+const cartRoutes = require('./routes/cart');
 
 app.use(authRoutes);
 app.use(seedRoute);
+app.use('/cart', cartRoutes);
 
 // ─────────────────────────────────────────────────────────────
 // Pages
@@ -74,6 +76,7 @@ app.get('/product', async (req, res) => {
     if (!product) return res.status(404).send('Product not found');
 
     const productView = {
+      _id: product._id,
       title: product.title,
       price: product.price,
       image: product.images?.[0] || '/assets/default.png',
