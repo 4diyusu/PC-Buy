@@ -7,6 +7,7 @@ const open = require('open').default;
 const mongoose = require('mongoose');
 require('dotenv').config();
 const session = require('express-session');
+const isAuthenticated = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -114,6 +115,36 @@ app.get('/register', (req, res) => {
 
   res.render('register', { isLoggedIn, username });
 });
+
+// Profile page
+const isAuthenticated = require('./middleware/auth');
+const User = require('./models/user'); // if not yet imported
+
+app.get('/profile', isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userId);
+    if (!user) return res.status(404).send('User not found');
+
+    res.render('profile', {
+      isLoggedIn: true,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      address: {
+        address1: user.address1,
+        address2: user.address2,
+        city: user.city,
+        state: user.state,
+        zip: user.zip,
+        country: user.country
+      }
+    });
+  } catch (err) {
+    console.error('Profile error:', err);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 // ─────────────────────────────────────────────────────────────
 // Server Start

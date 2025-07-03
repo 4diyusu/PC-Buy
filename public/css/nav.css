@@ -77,3 +77,16 @@ body.dark-mode .hamburger-icon {
 body.dark-mode .hamburger-icon:hover {
   background-color: #333;
 }
+
+/* ========== Greeting Style ========== */
+.welcome-msg {
+  align-self: center;
+  margin-right: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--light-text);
+}
+
+body.dark-mode .welcome-msg {
+  color: var(--dark-text);
+}
