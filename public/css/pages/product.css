@@ -82,7 +82,7 @@
 
 .product-img {
   width: 300px;
-  height: auto;
+  height: 300px;
   object-fit: contain;
   border: 1px solid #ccc;
   border-radius: 8px;

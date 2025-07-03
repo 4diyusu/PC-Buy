@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const session = require('express-session');
 const isAuthenticated = require('./middleware/auth');
+const productRoutes = require('./routes/product');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -79,7 +80,7 @@ app.get('/product', async (req, res) => {
       _id: product._id,
       title: product.title,
       price: product.price,
-      image: product.images?.[0] || '/assets/default.png',
+      image: product.image || '/assets/default.png',
       shortDescription: product.description,
       inStock: product.instock,
       specs: product.fullSpecs
@@ -129,6 +130,9 @@ app.get('/profile', isAuthenticated, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+app.use('/product', productRoutes); 
+
 
 // ─────────────────────────────────────────────────────────────
 // Server Start

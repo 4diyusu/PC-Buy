@@ -14,23 +14,23 @@
       <div class="product-details-box">
         <img
           class="product-img"
-          src="<%= product.image || '/assets/placeholder.png' %>"
+          src="<%= product.image || '/assets/default.png' %>"
           alt="<%= product.title || 'Product Image' %>"
         />
 
         <div class="product-info">
           <h1><%= product.title || 'No Title Available' %></h1>
-          <p><%= product.shortDescription || 'No description available.' %></p>
+          <p><%= product.description || 'No description available.' %></p>
           <p>
             <strong>Price: </strong>
             ₱<%= product.price ? product.price.toLocaleString() : 'N/A' %>
           </p>
-          <p class="<%= product.inStock ? 'in-stock' : 'out-of-stock' %>">
-            <%= product.inStock ? 'In Stock' : 'Out of Stock' %>
+          <p class="<%= product.instock ? 'in-stock' : 'out-of-stock' %>">
+            <%= product.instock ? 'In Stock' : 'Out of Stock' %>
           </p>
 
           <div class="product-buttons">
-            <% if (product.inStock) { %>
+            <% if (product.instock) { %>
             <form
               action="/cart/add/<%= product._id %>"
               method="POST"
@@ -48,7 +48,7 @@
 
       <div class="product-specs">
         <h3>Product Specifications</h3>
-        <p><%= product.specs || 'No specifications available.' %></p>
+        <p><%= product.fullSpecs || 'No specifications available.' %></p>
       </div>
     </main>
 
