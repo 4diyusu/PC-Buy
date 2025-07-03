@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - PC Buy</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
+
+    <main class="profile-layout">
+      <aside class="profile-sidebar">
+        <h2>My Account</h2>
+        <ul class="profile-tabs">
+          <li onclick="showTab('details')" class="active">
+            👤 Profile Details
+          </li>
+          <li onclick="showTab('address', event)">📍 Address Book</li>
+          <li onclick="showTab('payment', event)">💳 Payment Options</li>
+          <li onclick="showTab('reviews', event)">⭐ Manage Reviews</li>
+          <li onclick="showTab('password', event)">🔐 Password</li>
+          <li onclick="showTab('history', event)">📜 Login History</li>
+          <li onclick="showTab('orders', event)">🧾 Order History</li>
+          <li onclick="showTab('returns', event)">↩️ Return Status</li>
+          <li onclick="showTab('browsing', event)">🧠 Browsing History</li>
+        </ul>
+      </aside>
+
+      <section class="profile-content">
+        <div id="tab-details" class="tab-section active">
+          <h3>👤 Profile Details</h3>
+          <p><strong>Username:</strong> <%= username %></p>
+          <p><strong>Email:</strong> <%= user.email %></p>
+          <p><strong>Phone:</strong> <%= user.phone %></p>
+        </div>
+
+        <div id="tab-address" class="tab-section">
+          <h3>📍 Address Book</h3>
+          <p>
+            <strong>Address:</strong> <%= user.address1 %>, <%= user.address2
+            %>, <%= user.city %>, <%= user.state %>, <%= user.zip %>, <%=
+            user.country %>
+          </p>
+        </div>
+
+        <!-- Placeholder sections -->
+        <div id="tab-payment" class="tab-section">
+          <h3>💳 Payment Options</h3>
+          <p>Coming soon...</p>
+        </div>
+        <div id="tab-reviews" class="tab-section">
+          <h3>⭐ Manage Reviews</h3>
+          <p>Coming soon...</p>
+        </div>
+        <div id="tab-password" class="tab-section">
+          <h3>🔐 Password</h3>
+          <p>Coming soon...</p>
+        </div>
+        <div id="tab-history" class="tab-section">
+          <h3>📜 Login History</h3>
+          <p>Coming soon...</p>
+        </div>
+        <div id="tab-orders" class="tab-section">
+          <h3>🧾 Order History</h3>
+          <p>Coming soon...</p>
+        </div>
+        <div id="tab-returns" class="tab-section">
+          <h3>↩️ Return Status</h3>
+          <p>Coming soon...</p>
+        </div>
+        <div id="tab-browsing" class="tab-section">
+          <h3>🧠 Browsing History</h3>
+          <p>Coming soon...</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <%- include('partials/footer') %>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/profile.js"></script>
+  </body>
+</html>

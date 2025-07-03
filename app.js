@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 🟡 Added session middleware
 app.use(session({
   secret: 'pcbuy_secret_key',
   resave: false,
@@ -40,6 +39,7 @@ app.use(session({
 // Models
 // ─────────────────────────────────────────────────────────────
 const Product = require('./models/product');
+const User = require('./models/user');
 
 // ─────────────────────────────────────────────────────────────
 // Routes
@@ -50,12 +50,13 @@ const seedRoute = require('./routes/seed');
 app.use(authRoutes);
 app.use(seedRoute);
 
-// Home page
+// ─────────────────────────────────────────────────────────────
+// Pages
+// ─────────────────────────────────────────────────────────────
 app.get('/', async (req, res) => {
   try {
     const allProducts = await Product.find();
     const recommendedProducts = allProducts.slice(0, 4);
-
     const isLoggedIn = !!req.session.userId;
     const username = req.session.username || null;
 
@@ -66,12 +67,10 @@ app.get('/', async (req, res) => {
   }
 });
 
-// Individual product page
 app.get('/product', async (req, res) => {
   try {
     const productId = req.query.id;
     const product = await Product.findById(productId);
-
     if (!product) return res.status(404).send('Product not found');
 
     const productView = {
@@ -93,11 +92,9 @@ app.get('/product', async (req, res) => {
   }
 });
 
-// All products listing
 app.get('/products', async (req, res) => {
   try {
     const products = await Product.find();
-
     const isLoggedIn = !!req.session.userId;
     const username = req.session.username || null;
 
@@ -108,43 +105,27 @@ app.get('/products', async (req, res) => {
   }
 });
 
-// Register page
 app.get('/register', (req, res) => {
   const isLoggedIn = !!req.session.userId;
   const username = req.session.username || null;
-
   res.render('register', { isLoggedIn, username });
 });
-
-// Profile page
-const isAuthenticated = require('./middleware/auth');
-const User = require('./models/user'); // if not yet imported
 
 app.get('/profile', isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.session.userId);
-    if (!user) return res.status(404).send('User not found');
+    if (!user) return res.redirect('/login');
 
     res.render('profile', {
       isLoggedIn: true,
-      username: user.username,
-      email: user.email,
-      phone: user.phone,
-      address: {
-        address1: user.address1,
-        address2: user.address2,
-        city: user.city,
-        state: user.state,
-        zip: user.zip,
-        country: user.country
-      }
+      username: req.session.username,
+      user
     });
   } catch (err) {
-    console.error('Profile error:', err);
+    console.error('Error loading profile:', err);
     res.status(500).send('Server Error');
   }
 });
-
 
 // ─────────────────────────────────────────────────────────────
 // Server Start
