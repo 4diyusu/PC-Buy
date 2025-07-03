@@ -3,6 +3,17 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
+// GET /login — render a login page (or you can render index with login modal)
+router.get('/login', (req, res) => {
+  const isLoggedIn = !!req.session.userId;
+  const username = req.session.username || null;
+
+  // If you have a dedicated login page, render it here.
+  // Or simply redirect to '/' and let the modal handle it.
+  // For now, let's render a simple login page named 'login.ejs':
+  res.render('login', { isLoggedIn, username });
+});
+
 // POST /register
 router.post('/register', async (req, res) => {
   const {
@@ -95,8 +106,8 @@ router.post('/login', async (req, res) => {
     // 1. Check if the user exists (by email OR username)
     const user = await User.findOne({
       $or: [
-        { email: rawInput.toLowerCase() }, // ✅ Normalize email
-        { username: rawInput }             // ✅ Keep username as-is
+        { email: rawInput.toLowerCase() },
+        { username: rawInput }
       ]
     });
 
@@ -122,7 +133,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-
 // POST /logout
 router.route('/logout').get(logoutHandler).post(logoutHandler);
 
@@ -135,7 +145,5 @@ function logoutHandler(req, res) {
     res.redirect('/');
   });
 }
-
-
 
 module.exports = router;

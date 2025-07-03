@@ -35,7 +35,8 @@
 
 .nav-actions {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1rem;
   margin-left: auto;
 }
 
@@ -51,6 +52,33 @@
 
 .nav-actions button:hover {
   background-color: var(--accent-green);
+}
+
+/* ========== Cart Button ========== */
+.cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--light-text);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.cart-btn:hover {
+  background-color: var(--light-bg);
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.cart-btn svg {
+  stroke: var(--primary-green);
+  width: 20px;
+  height: 20px;
 }
 
 /* ========== Hamburger Icon Inside Nav ========== */
@@ -141,4 +169,19 @@ body.dark-mode .logout-btn {
 body.dark-mode .logout-btn:hover {
   background-color: #991f1f;
   color: #ffffff;
+}
+
+/* Cart button in Dark Mode */
+body.dark-mode .cart-btn {
+  color: var(--dark-text);
+}
+
+body.dark-mode .cart-btn:hover {
+  background-color: var(--card-dark);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+}
+
+body.dark-mode .cart-btn svg {
+  stroke: var(--accent-green);
 }
