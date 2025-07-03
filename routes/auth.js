@@ -88,20 +88,26 @@ router.post('/register', async (req, res) => {
 
 // POST /login
 router.post('/login', async (req, res) => {
-  const email = req.body.email?.trim().toLowerCase();
+  const rawInput = req.body.emailOrUsername?.trim();
   const password = req.body.password;
 
   try {
-    // 1. Check if the user exists
-    const user = await User.findOne({ email });
+    // 1. Check if the user exists (by email OR username)
+    const user = await User.findOne({
+      $or: [
+        { email: rawInput.toLowerCase() }, // ✅ Normalize email
+        { username: rawInput }             // ✅ Keep username as-is
+      ]
+    });
+
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password.' });
+      return res.status(401).json({ error: 'Invalid email or username.' });
     }
 
     // 2. Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid email or password.' });
+      return res.status(401).json({ error: 'Invalid password.' });
     }
 
     // 3. Store session
@@ -116,8 +122,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// GET /logout
-router.get('/logout', (req, res) => {
+
+// POST /logout
+router.route('/logout').get(logoutHandler).post(logoutHandler);
+
+function logoutHandler(req, res) {
   req.session.destroy((err) => {
     if (err) {
       console.error('Logout error:', err);
@@ -125,7 +134,8 @@ router.get('/logout', (req, res) => {
     }
     res.redirect('/');
   });
-});
+}
+
 
 
 module.exports = router;

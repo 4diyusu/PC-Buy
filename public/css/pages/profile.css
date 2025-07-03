@@ -1,0 +1,89 @@
+/* ========== Profile Page Layout ========== */
+.profile-layout {
+  display: flex;
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========== Sidebar ========== */
+.profile-sidebar {
+  width: 250px;
+  background-color: var(--card-light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .profile-sidebar {
+  background-color: var(--card-dark);
+}
+
+.profile-sidebar h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+/* ========== Tabs ========== */
+.profile-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-tabs li {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #eaeaea;
+  color: #1c1c1c;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.profile-tabs li:hover,
+.profile-tabs li.active {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+/* Dark mode override for tab buttons */
+body.dark-mode .profile-tabs li {
+  background-color: #333;
+  color: var(--dark-text);
+}
+
+body.dark-mode .profile-tabs li:hover,
+body.dark-mode .profile-tabs li.active {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+/* ========== Profile Content Panel ========== */
+.profile-content {
+  flex: 1;
+  background-color: var(--card-light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .profile-content {
+  background-color: var(--card-dark);
+  color: var(--dark-text);
+}
+
+/* ========== Tab Content Sections ========== */
+.tab-section {
+  display: none;
+}
+
+.tab-section.active {
+  display: block;
+}
+
+.tab-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
