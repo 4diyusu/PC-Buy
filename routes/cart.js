@@ -2,39 +2,85 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const Product = require('../models/product');
-const { addOrUpdateCart } = require('../utils/cart');
 
+// -------------------------
 // POST /cart/add/:id
+// -------------------------
 router.post('/add/:id', async (req, res) => {
-  if (!req.session.user) return res.redirect('/login');
-
-  const user = await User.findById(req.session.user._id);
-  if (!user) return res.redirect('/login');
-
   const productId = req.params.id;
-  const product = await Product.findById(productId);
-  if (!product) return res.status(404).send('Product not found.');
 
-  addOrUpdateCart(user.cart, productId);
-  await user.save();
+  // GUEST USER
+  if (!req.session.user) {
+    req.session.cart = req.session.cart || [];
 
-  res.redirect('/cart');
+    const existingItem = req.session.cart.find(item => item.productId === productId);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      req.session.cart.push({ productId, quantity: 1 });
+    }
+
+    return res.redirect('/cart');
+  }
+
+  // LOGGED IN USER
+  try {
+    const user = await User.findById(req.session.user._id);
+    const product = await Product.findById(productId);
+    if (!product) return res.status(404).send('Product not found');
+
+    const existingItem = user.cart.find(item => item.product.toString() === productId);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      user.cart.push({ product: productId, quantity: 1 });
+    }
+
+    await user.save();
+    res.redirect('/cart');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
 });
 
+// -------------------------
 // GET /cart
+// -------------------------
 router.get('/', async (req, res) => {
-  if (!req.session.userId) return res.redirect('/login');
-
   try {
-    const user = await User.findById(req.session.userId).populate('cart.productId');
+    // GUEST USER
+    if (!req.session.user) {
+      const guestCart = req.session.cart || [];
+      const populatedItems = [];
 
+      for (const item of guestCart) {
+        const product = await Product.findById(item.productId);
+        if (product) {
+          populatedItems.push({
+            product,
+            quantity: item.quantity,
+            subtotal: product.price * item.quantity
+          });
+        }
+      }
+
+      const total = populatedItems.reduce((sum, item) => sum + item.subtotal, 0);
+
+      return res.render('cart', {
+        cartItems: populatedItems,
+        total,
+        isLoggedIn: false,
+        username: null
+      });
+    }
+
+    // LOGGED IN USER
+    const user = await User.findById(req.session.user._id).populate('cart.product');
     const cartItems = user.cart.map(item => {
-      const product = item.productId;
+      const product = item.product;
       return {
-        _id: product._id,
-        title: product.title,
-        price: product.price,
-        image: product.images?.[0] || '/assets/default.png',
+        product,
         quantity: item.quantity,
         subtotal: product.price * item.quantity
       };
@@ -46,10 +92,69 @@ router.get('/', async (req, res) => {
       cartItems,
       total,
       isLoggedIn: true,
-      username: req.session.username
+      username: user.username
     });
   } catch (err) {
     console.error('Error loading cart:', err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// -------------------------
+// POST /cart/update/:id
+// -------------------------
+router.post('/update/:id', async (req, res) => {
+  const productId = req.params.id;
+  const { qty } = req.body;
+
+  // GUEST USER
+  if (!req.session.user) {
+    if (req.session.cart) {
+      const item = req.session.cart.find(i => i.productId === productId);
+      if (item) item.quantity = parseInt(qty);
+    }
+    return res.redirect('/cart');
+  }
+
+  // LOGGED IN USER
+  try {
+    const user = await User.findById(req.session.user._id);
+    const cartItem = user.cart.find(item => item.product.toString() === productId);
+    if (!cartItem) return res.status(404).send('Item not in cart.');
+
+    cartItem.quantity = parseInt(qty);
+    await user.save();
+
+    res.redirect('/cart');
+  } catch (err) {
+    console.error('Error updating cart item:', err);
+    res.status(500).send('Server Error');
+  }
+});
+
+// -------------------------
+// POST /cart/remove/:id
+// -------------------------
+router.post('/remove/:id', async (req, res) => {
+  const productId = req.params.id;
+
+  // GUEST USER
+  if (!req.session.user) {
+    if (req.session.cart) {
+      req.session.cart = req.session.cart.filter(item => item.productId !== productId);
+    }
+    return res.redirect('/cart');
+  }
+
+  // LOGGED IN USER
+  try {
+    const user = await User.findById(req.session.user._id);
+    user.cart = user.cart.filter(item => item.product.toString() !== productId);
+    await user.save();
+
+    res.redirect('/cart');
+  } catch (err) {
+    console.error('Error removing cart item:', err);
     res.status(500).send('Server Error');
   }
 });

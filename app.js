@@ -36,6 +36,13 @@ app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 } // 1 hour
 }));
 
+// Global Middleware to pass isLoggedIn and username to ALL views
+app.use((req, res, next) => {
+  res.locals.isLoggedIn = !!req.session.userId;
+  res.locals.username = req.session.username || null;
+  next();
+});
+
 // ─────────────────────────────────────────────────────────────
 // Models
 // ─────────────────────────────────────────────────────────────
@@ -82,7 +89,7 @@ app.get('/product', async (req, res) => {
       price: product.price,
       image: product.image || '/assets/default.png',
       shortDescription: product.description,
-      inStock: product.instock,
+      instock: product.instock,
       specs: product.fullSpecs
     };
 
