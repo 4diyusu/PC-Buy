@@ -3,53 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Cart - PC Buy</title>
+    <title>PC Buy - Cart</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/pages/cart.css" />
   </head>
   <body>
     <!-- Header (based on login state) -->
-    <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header', {
-    page: 'cart' }) %>
+    <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
-    <main class="cart-page container">
-      <h2>Your Cart</h2>
-
+    <main class="main-layout">
       <% if (cartItems.length === 0) { %>
-      <p>Your cart is empty. <a href="/products">Browse products</a></p>
+        <section class="empty-cart">
+          <p>Your cart is empty. <a href="/products">Browse products</a></p>
+        </section>
       <% } else { %>
-      <section class="cart-items">
-        <% cartItems.forEach(item => { %>
-        <div class="cart-item">
-          <img src="<%= item.image %>" alt="<%= item.title %>" width="80" />
-          <div class="cart-info">
-            <h4><%= item.title %></h4>
-            <p>
-              ₱<%= item.price %> x <%= item.quantity %> =
-              <strong>₱<%= item.subtotal %></strong>
-            </p>
-          </div>
-        </div>
-        <% }) %>
-      </section>
+        <section class="cart-items">
+          <% cartItems.forEach(item => { %>
+            <div class="cart-item">
+              <img src="<%= item.product.images?.[0] || '/images/placeholder.png' %>" 
+                   alt="<%= item.product.title %>" 
+                   width="80" />
+              <div class="cart-info">
+                <h4><%= item.product.title %></h4>
+                <p>
+                  ₱<%= item.product.price %> x <%= item.quantity %> =
+                  <strong>₱<%= item.subtotal %></strong>
+                </p>
 
-      <hr />
+                <!-- Quantity Update -->
+                <form action="/cart/update/<%= item.product._id %>" method="POST" class="qty-form">
+                  <input type="number" name="qty" value="<%= item.quantity %>" min="1" />
+                  <button type="submit">Update</button>
+                </form>
 
-      <section class="cart-summary">
-        <h3>Total: ₱<%= total %></h3>
-        <form action="/checkout" method="POST">
-          <button type="submit" class="btn btn-primary">
-            Proceed to Checkout
-          </button>
-        </form>
-      </section>
+                <!-- Remove Button -->
+                <form action="/cart/remove/<%= item.product._id %>" method="POST">
+                  <button type="submit" class="btn-remove">Remove</button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        </section>
+
+        <hr />
+
+        <section class="cart-summary">
+          <h3>Total: ₱<%= total %></h3>
+          <% if (isLoggedIn) { %>
+            <form action="/checkout" method="POST">
+              <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+            </form>
+          <% } else { %>
+            <p>Please <a href="#" onclick="openLoginModal()">log in</a> to proceed to checkout.</p>
+          <% } %>
+        </section>
       <% } %>
     </main>
+
+    <!-- Login Modal -->
+    <%- include('partials/loginModal') %>
 
     <!-- Footer -->
     <%- include('partials/footer') %>
 
     <!-- Scripts -->
+    <script src="/js/auth.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/login.js" defer></script>
   </body>
 </html>
