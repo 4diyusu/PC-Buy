@@ -7,21 +7,23 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <!-- Header (based on login state) -->
+    <!-- Header (updates properly based on login status) -->
     <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
     <main class="main-layout">
       <% if (cartItems.length === 0) { %>
         <section class="empty-cart">
-          <p>Your cart is empty. <a href="/products">Browse products</a></p>
+          <p>Your cart is empty. <a href="/">Browse products</a></p>
         </section>
       <% } else { %>
         <section class="cart-items">
           <% cartItems.forEach(item => { %>
             <div class="cart-item">
-              <img src="<%= item.product.images?.[0] || '/images/placeholder.png' %>" 
-                   alt="<%= item.product.title %>" 
-                   width="80" />
+              <img 
+                class="product-img" 
+                src="<%= item.product.image || '/assets/default.png' %>" 
+                alt="<%= item.product.title %>" 
+                width="80" />
               <div class="cart-info">
                 <h4><%= item.product.title %></h4>
                 <p>
