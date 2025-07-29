@@ -28,18 +28,21 @@
                 <h4><%= item.product.title %></h4>
                 <p>
                   ₱<%= item.product.price %> x <%= item.quantity %> =
-                  <strong>₱<%= item.subtotal %></strong>
+                  <strong class="item-subtotal">₱<%= item.subtotal %></strong>
                 </p>
-
+                
                 <!-- Quantity Update -->
                 <form action="/cart/update/<%= item.product._id %>" method="POST" class="qty-form">
-                  <input type="number" name="qty" value="<%= item.quantity %>" min="1" />
-                  <button type="submit">Update</button>
+                  <div class="qty-controls">
+                    <button type="submit" name="action" value="decrease" class="btn-minus">−</button>
+                    <input type="number" name="qty" value="<%= item.quantity %>" min="1" readonly />
+                    <button type="submit" name="action" value="increase" class="btn-plus">+</button>
+                  </div>
                 </form>
 
                 <!-- Remove Button -->
                 <form action="/cart/remove/<%= item.product._id %>" method="POST">
-                  <button type="submit" class="btn-remove">Remove</button>
+                  <button type="submit" class="remove-btn">🗑 Remove</button>
                 </form>
               </div>
             </div>
@@ -71,5 +74,6 @@
     <script src="/js/auth.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/login.js" defer></script>
+    <script src="/js/cart.js" defer></script>
   </body>
 </html>

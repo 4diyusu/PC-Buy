@@ -29,7 +29,10 @@ router.post('/add/:id', async (req, res) => {
     const product = await Product.findById(productId);
     if (!product) return res.status(404).send('Product not found');
 
-    const existingItem = user.cart.find(item => item.product && item.product.toString() === productId.toString());
+    const existingItem = user.cart.find(item =>
+      item.product && item.product.toString() === productId.toString()
+    );
+
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
@@ -39,7 +42,7 @@ router.post('/add/:id', async (req, res) => {
     await user.save();
     res.redirect('/cart');
   } catch (err) {
-    console.error(err);
+    console.error('Error adding to cart:', err);
     res.status(500).send('Server error');
   }
 });
@@ -86,6 +89,7 @@ router.get('/', async (req, res) => {
 
     // LOGGED IN USER
     const user = await User.findById(req.session.userId).populate('cart.product');
+
     for (const item of user.cart) {
       const product = item.product;
       if (!product) continue;
@@ -121,30 +125,66 @@ router.get('/', async (req, res) => {
 // -------------------------
 router.post('/update/:id', async (req, res) => {
   const productId = req.params.id;
-  const { qty } = req.body;
+  const qty = parseInt(req.body.qty);
 
-  // GUEST USER
-  if (!req.session.userId) {
-    if (req.session.cart) {
-      const item = req.session.cart.find(i => i.productId === productId);
-      if (item) item.quantity = parseInt(qty);
-    }
-    return res.redirect('/cart');
-  }
-
-  // LOGGED IN USER
   try {
-    const user = await User.findById(req.session.userId);
-    const cartItem = user.cart.find(item => item.product.toString() === productId);
-    if (!cartItem) return res.status(404).send('Item not in cart.');
+    // GUEST USER
+    if (!req.session.userId) {
+      req.session.cart = req.session.cart || [];
+      const item = req.session.cart.find(i => i.productId === productId);
 
-    cartItem.quantity = parseInt(qty);
+      if (!item) {
+        return res.status(404).json({ success: false, message: 'Product not in cart' });
+      }
+
+      item.quantity = qty;
+
+      const product = await Product.findById(productId);
+      const updatedSubtotal = product.price * qty;
+
+      // Recalculate total
+      let total = 0;
+      for (const i of req.session.cart) {
+        const p = await Product.findById(i.productId);
+        total += p.price * i.quantity;
+      }
+
+      return res.json({
+        success: true,
+        updatedSubtotal,
+        total
+      });
+    }
+
+    // LOGGED IN USER
+    const user = await User.findById(req.session.userId).populate('cart.product');
+
+    const item = user.cart.find(i =>
+      i.product && i.product._id.toString() === productId
+    );
+
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Product not in cart' });
+    }
+
+    item.quantity = qty;
     await user.save();
 
-    res.redirect('/cart');
+    const updatedSubtotal = item.product.price * qty;
+
+    // Recalculate total
+    const total = user.cart.reduce((sum, i) => {
+      return sum + (i.product ? i.product.price * i.quantity : 0);
+    }, 0);
+
+    return res.json({
+      success: true,
+      updatedSubtotal,
+      total
+    });
   } catch (err) {
-    console.error('Error updating cart item:', err);
-    res.status(500).send('Server Error');
+    console.error("Error updating cart item:", err);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 
@@ -165,7 +205,9 @@ router.post('/remove/:id', async (req, res) => {
   // LOGGED IN USER
   try {
     const user = await User.findById(req.session.userId);
-    user.cart = user.cart.filter(item => item.product.toString() !== productId);
+    user.cart = user.cart.filter(item =>
+      item.product && item.product.toString() !== productId.toString()
+    );
     await user.save();
 
     res.redirect('/cart');
