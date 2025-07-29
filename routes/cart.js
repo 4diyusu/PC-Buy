@@ -10,7 +10,7 @@ router.post('/add/:id', async (req, res) => {
   const productId = req.params.id;
 
   // GUEST USER
-  if (!req.session.user) {
+  if (!req.session.userId) {
     req.session.cart = req.session.cart || [];
 
     const existingItem = req.session.cart.find(item => item.productId === productId);
@@ -25,11 +25,11 @@ router.post('/add/:id', async (req, res) => {
 
   // LOGGED IN USER
   try {
-    const user = await User.findById(req.session.user._id);
+    const user = await User.findById(req.session.userId);
     const product = await Product.findById(productId);
     if (!product) return res.status(404).send('Product not found');
 
-    const existingItem = user.cart.find(item => item.product.toString() === productId);
+    const existingItem = user.cart.find(item => item.product && item.product.toString() === productId.toString());
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
@@ -49,50 +49,66 @@ router.post('/add/:id', async (req, res) => {
 // -------------------------
 router.get('/', async (req, res) => {
   try {
+    let cartItems = [];
+    let total = 0;
+    const isLoggedIn = !!req.session.userId;
+    const username = req.session.username || null;
+
     // GUEST USER
-    if (!req.session.user) {
+    if (!req.session.userId) {
       const guestCart = req.session.cart || [];
-      const populatedItems = [];
 
       for (const item of guestCart) {
         const product = await Product.findById(item.productId);
         if (product) {
-          populatedItems.push({
+          const quantity = Math.min(item.quantity, product.instock || 0);
+          const subtotal = product.price * quantity;
+
+          cartItems.push({
             product,
-            quantity: item.quantity,
-            subtotal: product.price * item.quantity
+            quantity,
+            subtotal,
+            stock: product.instock || 0
           });
+
+          total += subtotal;
         }
       }
 
-      const total = populatedItems.reduce((sum, item) => sum + item.subtotal, 0);
-
       return res.render('cart', {
-        cartItems: populatedItems,
+        cartItems,
         total,
-        isLoggedIn: false,
-        username: null
+        isLoggedIn,
+        username,
+        isEmpty: cartItems.length === 0
       });
     }
 
     // LOGGED IN USER
-    const user = await User.findById(req.session.user._id).populate('cart.product');
-    const cartItems = user.cart.map(item => {
+    const user = await User.findById(req.session.userId).populate('cart.product');
+    for (const item of user.cart) {
       const product = item.product;
-      return {
-        product,
-        quantity: item.quantity,
-        subtotal: product.price * item.quantity
-      };
-    });
+      if (!product) continue;
 
-    const total = cartItems.reduce((sum, item) => sum + item.subtotal, 0);
+      const quantity = Math.min(item.quantity, product.instock || 0);
+      const subtotal = product.price * quantity;
+
+      cartItems.push({
+        product,
+        quantity,
+        subtotal,
+        stock: product.instock || 0
+      });
+
+      total += subtotal;
+    }
 
     res.render('cart', {
       cartItems,
       total,
-      isLoggedIn: true,
-      username: user.username
+      isLoggedIn,
+      username,
+      isEmpty: cartItems.length === 0
     });
   } catch (err) {
     console.error('Error loading cart:', err);
@@ -108,7 +124,7 @@ router.post('/update/:id', async (req, res) => {
   const { qty } = req.body;
 
   // GUEST USER
-  if (!req.session.user) {
+  if (!req.session.userId) {
     if (req.session.cart) {
       const item = req.session.cart.find(i => i.productId === productId);
       if (item) item.quantity = parseInt(qty);
@@ -118,7 +134,7 @@ router.post('/update/:id', async (req, res) => {
 
   // LOGGED IN USER
   try {
-    const user = await User.findById(req.session.user._id);
+    const user = await User.findById(req.session.userId);
     const cartItem = user.cart.find(item => item.product.toString() === productId);
     if (!cartItem) return res.status(404).send('Item not in cart.');
 
@@ -139,7 +155,7 @@ router.post('/remove/:id', async (req, res) => {
   const productId = req.params.id;
 
   // GUEST USER
-  if (!req.session.user) {
+  if (!req.session.userId) {
     if (req.session.cart) {
       req.session.cart = req.session.cart.filter(item => item.productId !== productId);
     }
@@ -148,7 +164,7 @@ router.post('/remove/:id', async (req, res) => {
 
   // LOGGED IN USER
   try {
-    const user = await User.findById(req.session.user._id);
+    const user = await User.findById(req.session.userId);
     user.cart = user.cart.filter(item => item.product.toString() !== productId);
     await user.save();
 
