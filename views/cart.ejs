@@ -27,23 +27,22 @@
               <div class="cart-info">
                 <h4><%= item.product.title %></h4>
                 <p>
-                  ₱<%= item.product.price %> x <%= item.quantity %> =
-                  <strong class="item-subtotal">₱<%= item.subtotal %></strong>
+                  ₱<%= item.product.price %>
                 </p>
-                
-                <!-- Quantity Update -->
-                <form action="/cart/update/<%= item.product._id %>" method="POST" class="qty-form">
-                  <div class="qty-controls">
-                    <button type="submit" name="action" value="decrease" class="btn-minus">−</button>
-                    <input type="number" name="qty" value="<%= item.quantity %>" min="1" readonly />
-                    <button type="submit" name="action" value="increase" class="btn-plus">+</button>
-                  </div>
-                </form>
 
-                <!-- Remove Button -->
-                <form action="/cart/remove/<%= item.product._id %>" method="POST">
-                  <button type="submit" class="remove-btn">🗑 Remove</button>
-                </form>
+                <div class="cart-actions">
+                  <!-- Quantity Update -->
+                  <form action="/cart/update/<%= item.product._id %>" method="POST" class="qty-form">
+                    <button class="btn-minus">−</button>
+                    <input type="number" name="qty" value="<%= item.quantity %>" min="1" readonly />
+                    <button class="btn-plus">+</button>
+                  </form>
+
+                  <!-- Remove Button -->
+                  <form action="/cart/remove/<%= item.product._id %>" method="POST" class="remove-form">
+                    <button type="submit" class="btn-remove">Remove</button>
+                  </form>
+                </div>
               </div>
             </div>
           <% }) %>
