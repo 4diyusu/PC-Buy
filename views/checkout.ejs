@@ -1,0 +1,42 @@
+<%- include('partials/header', { isLoggedIn, username }) %>
+
+<section class="checkout-page">
+  <h1>Checkout</h1>
+
+  <% if (cartItems && cartItems.length > 0) { %>
+    <div class="checkout-container">
+
+      <!-- Cart Summary -->
+      <div class="checkout-cart">
+        <h2>Your Items</h2>
+        <% cartItems.forEach(item => { %>
+          <div class="checkout-item">
+            <img src="<%= item.product.images && item.product.images[0] ? item.product.images[0] : '/images/no-image.png' %>" alt="<%= item.product.title %>">
+            <div class="item-details">
+              <h3><%= item.product.title %></h3>
+              <p>Price: ₱<%= item.product.price.toLocaleString() %></p>
+              <p>Quantity: <%= item.quantity %></p>
+              <p>Subtotal: ₱<%= item.subtotal.toLocaleString() %></p>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <p>Subtotal: ₱<%= subtotal.toLocaleString() %></p>
+        <p>Shipping: ₱<%= shippingFee.toLocaleString() %></p>
+        <h3>Total: ₱<%= total.toLocaleString() %></h3>
+        <form action="/checkout" method="POST">
+          <button type="submit" class="btn-primary">Confirm & Pay</button>
+        </form>
+      </div>
+
+    </div>
+  <% } else { %>
+    <p>Your cart is empty. <a href="/">Go shopping</a></p>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>
