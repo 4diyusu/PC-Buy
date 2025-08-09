@@ -55,10 +55,13 @@ const User = require('./models/user');
 const authRoutes = require('./routes/auth');
 const seedRoute = require('./routes/seed');
 const cartRoutes = require('./routes/cart');
+const checkoutRoutes = require('./routes/checkout'); // ✅ NEW
 
 app.use(authRoutes);
 app.use(seedRoute);
 app.use('/cart', cartRoutes);
+app.use('/product', productRoutes);
+app.use('/checkout', isAuthenticated, checkoutRoutes); // ✅ Protected
 
 // ─────────────────────────────────────────────────────────────
 // Pages
@@ -67,10 +70,12 @@ app.get('/', async (req, res) => {
   try {
     const allProducts = await Product.find();
     const recommendedProducts = allProducts.slice(0, 4);
-    const isLoggedIn = !!req.session.userId;
-    const username = req.session.username || null;
-
-    res.render('index', { allProducts, recommendedProducts, isLoggedIn, username });
+    res.render('index', { 
+      allProducts, 
+      recommendedProducts, 
+      isLoggedIn: !!req.session.userId, 
+      username: req.session.username || null 
+    });
   } catch (error) {
     console.error('Error loading homepage products:', error);
     res.status(500).send('Server Error');
@@ -83,20 +88,19 @@ app.get('/product', async (req, res) => {
     const product = await Product.findById(productId);
     if (!product) return res.status(404).send('Product not found');
 
-    const productView = {
-      _id: product._id,
-      title: product.title,
-      price: product.price,
-      image: product.image || '/assets/default.png',
-      shortDescription: product.description,
-      instock: product.instock,
-      specs: product.fullSpecs
-    };
-
-    const isLoggedIn = !!req.session.userId;
-    const username = req.session.username || null;
-
-    res.render('product', { product: productView, isLoggedIn, username });
+    res.render('product', { 
+      product: {
+        _id: product._id,
+        title: product.title,
+        price: product.price,
+        image: product.image || '/assets/default.png',
+        shortDescription: product.description,
+        instock: product.instock,
+        specs: product.fullSpecs
+      },
+      isLoggedIn: !!req.session.userId,
+      username: req.session.username || null
+    });
   } catch (err) {
     console.error('Error fetching product:', err);
     res.status(500).send('Server Error');
@@ -106,10 +110,11 @@ app.get('/product', async (req, res) => {
 app.get('/products', async (req, res) => {
   try {
     const products = await Product.find();
-    const isLoggedIn = !!req.session.userId;
-    const username = req.session.username || null;
-
-    res.render('products', { products, isLoggedIn, username });
+    res.render('products', { 
+      products, 
+      isLoggedIn: !!req.session.userId, 
+      username: req.session.username || null 
+    });
   } catch (err) {
     console.error('Error fetching products:', err);
     res.status(500).send('Server Error');
@@ -117,9 +122,10 @@ app.get('/products', async (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  const isLoggedIn = !!req.session.userId;
-  const username = req.session.username || null;
-  res.render('register', { isLoggedIn, username });
+  res.render('register', { 
+    isLoggedIn: !!req.session.userId, 
+    username: req.session.username || null 
+  });
 });
 
 app.get('/profile', isAuthenticated, async (req, res) => {
@@ -137,9 +143,6 @@ app.get('/profile', isAuthenticated, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-app.use('/product', productRoutes); 
-
 
 // ─────────────────────────────────────────────────────────────
 // Server Start

@@ -5,8 +5,8 @@ const productSchema = new mongoose.Schema({
   description: String,
   price: Number,
   instock: {
-  type: Boolean,
-  default: true,
+  type: Number,
+  default: 0,
   },
   fullSpecs: String,
   recommended: Boolean,
