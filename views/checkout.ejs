@@ -1,42 +1,58 @@
-<%- include('partials/header', { isLoggedIn, username }) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | PC Buy</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
 
-<section class="checkout-page">
-  <h1>Checkout</h1>
+  <!-- Header -->
+  <%- include('partials/header', { isLoggedIn, username }) %>
 
-  <% if (cartItems && cartItems.length > 0) { %>
-    <div class="checkout-container">
+  <!-- Checkout Section -->
+  <main class="checkout-page">
+    <h1>Checkout</h1>
 
-      <!-- Cart Summary -->
-      <div class="checkout-cart">
-        <h2>Your Items</h2>
-        <% cartItems.forEach(item => { %>
-          <div class="checkout-item">
-            <img src="<%= item.product.images && item.product.images[0] ? item.product.images[0] : '/images/no-image.png' %>" alt="<%= item.product.title %>">
-            <div class="item-details">
-              <h3><%= item.product.title %></h3>
-              <p>Price: ₱<%= item.product.price.toLocaleString() %></p>
-              <p>Quantity: <%= item.quantity %></p>
-              <p>Subtotal: ₱<%= item.subtotal.toLocaleString() %></p>
+    <% if (cartItems && cartItems.length > 0) { %>
+      <div class="checkout-container">
+
+        <!-- Cart Summary -->
+        <div class="checkout-cart">
+          <h2>Your Items</h2>
+          <% cartItems.forEach(item => { %>
+            <div class="checkout-item">
+              <img src="<%= item.product.images && item.product.images[0] ? item.product.images[0] : '/images/no-image.png' %>" alt="<%= item.product.title %>">
+              <div class="item-details">
+                <h3><%= item.product.title %></h3>
+                <p>Price: ₱<%= item.product.price.toLocaleString() %></p>
+                <p>Quantity: <%= item.quantity %></p>
+                <p>Subtotal: ₱<%= item.subtotal.toLocaleString() %></p>
+              </div>
             </div>
-          </div>
-        <% }) %>
+          <% }) %>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="checkout-summary">
+          <h2>Order Summary</h2>
+          <p>Subtotal: ₱<%= subtotal.toLocaleString() %></p>
+          <p>Shipping: ₱<%= shippingFee.toLocaleString() %></p>
+          <h3>Total: ₱<%= total.toLocaleString() %></h3>
+          <form action="/checkout" method="POST">
+            <button type="submit" class="btn-primary">Confirm & Pay</button>
+          </form>
+        </div>
+
       </div>
+    <% } else { %>
+      <p class="empty-cart-msg">Your cart is empty. <a href="/">Go shopping</a></p>
+    <% } %>
+  </main>
 
-      <!-- Order Summary -->
-      <div class="checkout-summary">
-        <h2>Order Summary</h2>
-        <p>Subtotal: ₱<%= subtotal.toLocaleString() %></p>
-        <p>Shipping: ₱<%= shippingFee.toLocaleString() %></p>
-        <h3>Total: ₱<%= total.toLocaleString() %></h3>
-        <form action="/checkout" method="POST">
-          <button type="submit" class="btn-primary">Confirm & Pay</button>
-        </form>
-      </div>
+  <!-- Footer -->
+  <%- include('partials/footer') %>
 
-    </div>
-  <% } else { %>
-    <p>Your cart is empty. <a href="/">Go shopping</a></p>
-  <% } %>
-</section>
-
-<%- include('partials/footer') %>
+</body>
+</html>

@@ -15,3 +15,6 @@
 @import url('pages/product.css');
 @import url('pages/profile.css');
 @import url('pages/cart.css');
+@import url('pages/checkout.css');
+@import url('pages/payment.css');
+@import url('pages/confirmed-order.css');

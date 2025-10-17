@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <!-- Header (updates properly based on login status) -->
+    <!-- Header -->
     <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
     <main class="main-layout">
@@ -26,16 +26,20 @@
                 width="80" />
               <div class="cart-info">
                 <h4><%= item.product.title %></h4>
-                <p>
-                  ₱<%= item.product.price %>
-                </p>
+                <p>₱<%= item.product.price %></p>
 
                 <div class="cart-actions">
                   <!-- Quantity Update -->
                   <form action="/cart/update/<%= item.product._id %>" method="POST" class="qty-form">
-                    <button class="btn-minus">−</button>
-                    <input type="number" name="qty" value="<%= item.quantity %>" min="1" readonly />
-                    <button class="btn-plus">+</button>
+                    <button type="submit" name="action" value="decrease" class="btn-minus">−</button>
+                    <input 
+                      type="number" 
+                      name="qty" 
+                      id="qty-<%= item.product._id %>" 
+                      value="<%= item.quantity %>" 
+                      min="1" 
+                      readonly />
+                    <button type="submit" name="action" value="increase" class="btn-plus">+</button>
                   </form>
 
                   <!-- Remove Button -->
@@ -53,8 +57,9 @@
         <section class="cart-summary">
           <h3>Total: ₱<%= total %></h3>
           <% if (isLoggedIn) { %>
-            <form action="/checkout" method="POST">
-              <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+            <form action="/payment" method="POST" class="payment-form">
+              <input type="hidden" name="total" value="<%= total %>" />
+              <button type="submit" class="btn btn-primary">Proceed to Payment</button>
             </form>
           <% } else { %>
             <p>Please <a href="#" onclick="openLoginModal()">log in</a> to proceed to checkout.</p>
