@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment | PC Buy</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
   <!-- Header Include -->
-  <%- include('partials/header', { title: 'Payment', isLoggedIn }) %>
+  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
   <main class="payment-container">
     <!-- Order Summary Section -->

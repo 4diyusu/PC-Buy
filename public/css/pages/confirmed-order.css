@@ -1,0 +1,18 @@
+/* === Confirmed Order Page === */
+.confirmed-order {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.confirmed-order .order-container {
+  background: #f8f8f8;
+  padding: 40px;
+  border-radius: 12px;
+  display: inline-block;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.confirmed-order h1 {
+  color: green;
+  margin-bottom: 15px;
+}

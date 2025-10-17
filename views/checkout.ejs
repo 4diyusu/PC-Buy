@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout | PC Buy</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
   <!-- Header -->
-  <%- include('partials/header', { isLoggedIn, username }) %>
+  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
   <!-- Checkout Section -->
   <main class="checkout-page">
@@ -23,7 +23,8 @@
           <h2>Your Items</h2>
           <% cartItems.forEach(item => { %>
             <div class="checkout-item">
-              <img src="<%= item.product.images && item.product.images[0] ? item.product.images[0] : '/images/no-image.png' %>" alt="<%= item.product.title %>">
+              <img src="<%= item.product.image || '/assets/default.png' %>" 
+                  alt="<%= item.product.title %>">
               <div class="item-details">
                 <h3><%= item.product.title %></h3>
                 <p>Price: ₱<%= item.product.price.toLocaleString() %></p>
