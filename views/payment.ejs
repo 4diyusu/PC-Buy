@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment | PC Buy</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Header Include -->
+  <%- include('partials/header', { title: 'Payment', isLoggedIn }) %>
+
+  <main class="payment-container">
+    <!-- Order Summary Section -->
+    <section class="payment-summary">
+      <h2>Order Summary</h2>
+
+      <% if (cart && cart.items.length > 0) { %>
+        <table class="payment-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cart.items.forEach(item => { %>
+              <tr>
+                <td><%= item.productId.title %></td>
+                <td><%= item.quantity %></td>
+                <td>₱<%= item.productId.price.toLocaleString() %></td>
+                <td>₱<%= (item.productId.price * item.quantity).toLocaleString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+
+        <div class="payment-total">
+          <strong>Total: ₱<%= cart.items.reduce((sum, i) => sum + i.productId.price * i.quantity, 0).toLocaleString() %></strong>
+        </div>
+      <% } else { %>
+        <p>Your cart is empty.</p>
+      <% } %>
+    </section>
+
+    <!-- Payment Method Section -->
+    <section class="payment-method">
+      <h2>Select Payment Method</h2>
+
+      <form action="/payment" method="POST" class="payment-form">
+        <div class="payment-option">
+          <input type="radio" id="cod" name="paymentMethod" value="Cash on Delivery" required>
+          <label for="cod">Cash on Delivery</label>
+        </div>
+
+        <div class="payment-option">
+          <input type="radio" id="card" name="paymentMethod" value="Credit/Debit Card">
+          <label for="card">Credit/Debit Card</label>
+        </div>
+
+        <div class="payment-option">
+          <input type="radio" id="gcash" name="paymentMethod" value="GCash">
+          <label for="gcash">GCash</label>
+        </div>
+
+        <div class="payment-option">
+          <input type="radio" id="maya" name="paymentMethod" value="Maya">
+          <label for="maya">Maya</label>
+        </div>
+
+        <button type="submit" class="btn-proceed">Proceed to Checkout</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer Include -->
+  <%- include('partials/footer') %>
+
+</body>
+</html>

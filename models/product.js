@@ -11,7 +11,6 @@ const productSchema = new mongoose.Schema({
   fullSpecs: String,
   recommended: Boolean,
   image: String
-
 });
 
 module.exports = mongoose.model('Product', productSchema);
