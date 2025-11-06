@@ -3,81 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment | PC Buy</title>
+  <title>Select Payment Method | PC Buy</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-  <!-- Header Include -->
-  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
+  <!-- Header -->
+  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header', { isLoggedIn, username }) %>
 
-  <main class="payment-container">
-    <!-- Order Summary Section -->
-    <section class="payment-summary">
-      <h2>Order Summary</h2>
+  <!-- Payment Wrapper -->
+  <div class="payment-wrapper">
+    <div class="payment-box">
+      <h1>Select Payment Method</h1>
 
-      <% if (cart && cart.items.length > 0) { %>
-        <table class="payment-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% cart.items.forEach(item => { %>
-              <tr>
-                <td><%= item.productId.title %></td>
-                <td><%= item.quantity %></td>
-                <td>₱<%= item.productId.price.toLocaleString() %></td>
-                <td>₱<%= (item.productId.price * item.quantity).toLocaleString() %></td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
-
-        <div class="payment-total">
-          <strong>Total: ₱<%= cart.items.reduce((sum, i) => sum + i.productId.price * i.quantity, 0).toLocaleString() %></strong>
-        </div>
-      <% } else { %>
-        <p>Your cart is empty.</p>
-      <% } %>
-    </section>
-
-    <!-- Payment Method Section -->
-    <section class="payment-method">
-      <h2>Select Payment Method</h2>
-
-      <form action="/payment" method="POST" class="payment-form">
-        <div class="payment-option">
-          <input type="radio" id="cod" name="paymentMethod" value="Cash on Delivery" required>
-          <label for="cod">Cash on Delivery</label>
+      <form id="paymentForm">
+        <!-- Payment Method Dropdown -->
+        <div class="form-group">
+          <label for="paymentMethod">Choose Method</label>
+          <select id="paymentMethod" name="paymentMethod" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="gcash">GCash</option>
+            <option value="cod">Cash on Delivery (COD)</option>
+            <option value="card">Credit / Debit Card</option>
+          </select>
         </div>
 
-        <div class="payment-option">
-          <input type="radio" id="card" name="paymentMethod" value="Credit/Debit Card">
-          <label for="card">Credit/Debit Card</label>
+        <!-- GCash Section -->
+        <div id="gcashSection" class="payment-section hidden">
+          <h3>GCash Payment Details</h3>
+          <label for="gcashName">Account Name</label>
+          <input type="text" id="gcashName" name="gcashName" placeholder="Full Name">
+
+          <label for="gcashNumber">GCash Number</label>
+          <input type="text" id="gcashNumber" name="gcashNumber" placeholder="09XXXXXXXXX">
         </div>
 
-        <div class="payment-option">
-          <input type="radio" id="gcash" name="paymentMethod" value="GCash">
-          <label for="gcash">GCash</label>
+        <!-- COD Section -->
+        <div id="codSection" class="payment-section hidden">
+          <h3>Cash on Delivery</h3>
+          <p>Your order will be processed for approval before delivery.</p>
         </div>
 
-        <div class="payment-option">
-          <input type="radio" id="maya" name="paymentMethod" value="Maya">
-          <label for="maya">Maya</label>
+        <!-- Card Section -->
+        <div id="cardSection" class="payment-section hidden">
+          <h3>Card Payment Details</h3>
+
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+
+          <label for="cardName">Name on Card</label>
+          <input type="text" id="cardName" name="cardName" placeholder="Full Name">
+
+          <div class="card-info">
+            <div>
+              <label for="expiry">Expiry Date</label>
+              <input type="text" id="expiry" name="expiry" placeholder="MM/YY">
+            </div>
+            <div>
+              <label for="cvv">CVV</label>
+              <input type="password" id="cvv" name="cvv" maxlength="3" placeholder="123">
+            </div>
+          </div>
+
+          <label class="save-card">
+            <input type="checkbox" name="saveCard"> Save card for future payments
+          </label>
         </div>
 
-        <button type="submit" class="btn-proceed">Proceed to Checkout</button>
+        <!-- Buttons -->
+        <div class="payment-actions">
+          <button id="proceedBtn" type="submit" class="btn-primary" disabled>Proceed</button>
+          <a href="/checkout" class="btn-secondary">Back to Checkout</a>
+        </div>
       </form>
-    </section>
-  </main>
+    </div>
+  </div>
 
-  <!-- Footer Include -->
+  <!-- Footer -->
   <%- include('partials/footer') %>
 
+  <script src="/js/payment.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>

@@ -156,13 +156,24 @@ app.get('/profile', isAuthenticated, async (req, res) => {
   }
 });
 
-// ✅ Confirmed Order Page
+// Confirmed Order Page
 app.get('/confirmed-order', isAuthenticated, (req, res) => {
   res.render('confirmed-order', {
     username: req.session.username,
     isLoggedIn: true
   });
 });
+
+// Checkout Success Page
+app.get('/checkout-success', (req, res) => {
+  const status = req.query.status || 'approved'; // comes from payment.js redirect
+  res.render('checkout-success', {
+    isLoggedIn: !!req.session.userId,
+    username: req.session.username || null,
+    status
+  });
+});
+
 
 // ─────────────────────────────────────────────────────────────
 // Server Start

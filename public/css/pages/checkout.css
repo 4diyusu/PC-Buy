@@ -58,3 +58,19 @@
 .btn-primary:hover {
   opacity: 0.9;
 }
+
+body.dark-mode {
+  background-color: #121212;
+  color: #f2f2f2;
+}
+
+body.dark-mode nav {
+  background-color: #222;
+}
+
+body.dark-mode .card,
+body.dark-mode .checkout-container,
+body.dark-mode .payment-container {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+}

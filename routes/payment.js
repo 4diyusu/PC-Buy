@@ -1,26 +1,39 @@
-// routes/payment.js
 const express = require('express');
 const router = express.Router();
 
+// ──────────────────────────────
+// Render Payment Page
+// ──────────────────────────────
 router.get('/', (req, res) => {
-  const cart = req.session.cart || {
-    items: [],
-    totalPrice: 0,
-    totalQuantity: 0,
-  };
-
-  res.render('payment', { cart });
+  res.render('payment', {
+    isLoggedIn: !!req.session.userId,
+    username: req.session.username || null
+  });
 });
 
+// ──────────────────────────────
+// Handle Payment Submission
+// ──────────────────────────────
 router.post('/', (req, res) => {
-  const cart = req.session.cart || {
-    items: [],
-    totalPrice: 0,
-    totalQuantity: 0,
-  };
+  const { paymentMethod } = req.body;
 
-  // Here, simulate a successful payment and redirect to checkout
-  res.redirect('/checkout');
+  // Safety check
+  if (!paymentMethod) {
+    return res.redirect('/payment');
+  }
+
+  // COD → pending approval
+  if (paymentMethod === 'cod') {
+    return res.redirect('/checkout-success?status=pending');
+  }
+
+  // GCash or Card → approved
+  if (paymentMethod === 'gcash' || paymentMethod === 'card') {
+    return res.redirect('/checkout-success?status=approved');
+  }
+
+  // Fallback if unknown method
+  return res.redirect('/payment');
 });
 
 module.exports = router;
