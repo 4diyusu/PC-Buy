@@ -9,12 +9,13 @@
 <body>
 
   <!-- Header -->
-  <%- include('partials/header', { isLoggedIn, username }) %>
+  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
   <!-- Confirmation Section -->
-  <section class="confirmed-order">
-    <div class="order-container">
-      <h1>✅ Order Placed!</h1>
+  <div class="checkout-success-wrapper">
+    <div class="checkout-success-box">
+      <div class="success-icon">✅</div>
+      <h1>Order Placed!</h1>
       <p>Hi <%= username %>, your order has been successfully placed.</p>
       <p>Status: <strong>Waiting for approval</strong></p>
 
@@ -23,10 +24,11 @@
         <a href="/cart" class="btn-secondary">Back to Cart</a>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Footer -->
   <%- include('partials/footer') %>
 
+  <script src="/js/main.js"></script>
 </body>
 </html>
