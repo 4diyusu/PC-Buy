@@ -1,0 +1,160 @@
+/* ========== Account Edit Page Styles ========== */
+
+/* Form Layout */
+.register-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.register-box {
+  background-color: var(--card-light);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.register-title h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.register-title hr {
+  border: 1px solid #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.update-account-form h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-green);
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.25rem;
+}
+
+/* Inputs & Selects */
+.update-account-form label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.update-account-form input,
+.update-account-form select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.update-account-form input:focus,
+.update-account-form select:focus {
+  border-color: var(--primary-green);
+  outline: none;
+}
+
+/* State & ZIP Row */
+.state-zip-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.state-zip-row .form-group {
+  flex: 1;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: var(--primary-green);
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+/* Flash Messages */
+.flash {
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.flash.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.flash.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Optional Change Password Section */
+.update-account-form h2 {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: var(--primary-green);
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.25rem;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode .register-box {
+  background-color: var(--card-dark);
+  color: var(--dark-text);
+}
+
+body.dark-mode .update-account-form input,
+body.dark-mode .update-account-form select {
+  background-color: #1c1c1e;
+  color: #e5e5e5;
+  border: 1px solid #444;
+}
+
+body.dark-mode .update-account-form input:focus,
+body.dark-mode .update-account-form select:focus {
+  border-color: var(--primary-green);
+}
+
+body.dark-mode .btn-primary {
+  background-color: var(--accent-green);
+}
+
+body.dark-mode .btn-primary:hover {
+  background-color: var(--primary-green);
+}
+
+body.dark-mode .flash.success {
+  background-color: #276749;
+  color: #d4edda;
+}
+
+body.dark-mode .flash.error {
+  background-color: #721c24;
+  color: #f8d7da;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .state-zip-row {
+    flex-direction: column;
+  }
+}

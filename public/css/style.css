@@ -19,3 +19,5 @@
 @import url('pages/payment.css');
 @import url('pages/confirmed-order.css');
 @import url('pages/checkout-success.css');
+@import url('pages/account-edit.css');
+@import url('pages/transaction-history.css');

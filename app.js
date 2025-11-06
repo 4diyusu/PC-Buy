@@ -15,7 +15,11 @@ const authRoutes = require('./routes/auth');
 const seedRoute = require('./routes/seed');
 const cartRoutes = require('./routes/cart');
 const checkoutRoutes = require('./routes/checkout');
-const paymentRoutes = require('./routes/payment'); // ✅ restored correctly here
+const paymentRoutes = require('./routes/payment');
+const accountRoutes = require('./routes/account');
+const transactionHistoryRoutes = require('./routes/transaction-history');
+
+
 
 // Models
 const Product = require('./models/product');
@@ -66,7 +70,9 @@ app.use(seedRoute);
 app.use('/product', productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/checkout', isAuthenticated, checkoutRoutes);
-app.use('/payment', isAuthenticated, paymentRoutes); // ✅ correct and clean
+app.use('/payment', isAuthenticated, paymentRoutes); 
+app.use('/account', accountRoutes);
+app.use('/transaction-history', transactionHistoryRoutes);
 
 // ─────────────────────────────────────────────────────────────
 // Pages
