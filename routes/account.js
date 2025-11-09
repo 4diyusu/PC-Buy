@@ -15,7 +15,7 @@ router.get('/', isAuthenticated, async (req, res) => {
     const flash = req.session.flash;
     delete req.session.flash;
 
-    res.render('/hamburger/account-edit', {
+    res.render('hamburger/account-edit', {
       isLoggedIn: true,
       username: req.session.username,
       user,
