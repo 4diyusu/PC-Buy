@@ -35,13 +35,17 @@
 }
 
 .logout-btn {
-  margin-top: auto;
-  background-color: var(--primary-green);
+  background-color: #d9534f;
   color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .logout-btn:hover {
-  background-color: var(--accent-green);
+  background-color: #c9302c;
 }
 
 /* Hamburger Menu */

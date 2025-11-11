@@ -18,8 +18,7 @@ const checkoutRoutes = require('./routes/checkout');
 const paymentRoutes = require('./routes/payment');
 const accountRoutes = require('./routes/account');
 const transactionHistoryRoutes = require('./routes/transaction-history');
-
-
+const logoutRoute = require('./routes/logout');
 
 // Models
 const Product = require('./models/product');
@@ -55,6 +54,14 @@ app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 } // 1 hour
 }));
 
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
+
+
 // Global Middleware to inject session data to EJS
 app.use((req, res, next) => {
   res.locals.isLoggedIn = !!req.session.userId;
@@ -73,6 +80,7 @@ app.use('/checkout', isAuthenticated, checkoutRoutes);
 app.use('/payment', isAuthenticated, paymentRoutes); 
 app.use('/account', accountRoutes);
 app.use('/transaction-history', transactionHistoryRoutes);
+app.use('/logout', logoutRoute);
 
 // ─────────────────────────────────────────────────────────────
 // Pages
