@@ -11,61 +11,94 @@
     <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
     <main class="search-results-layout">
-      <h1 class="search-title">Search results for "<%= query %>"</h1>
+      <section class="top-section">
+        <!-- Sidebar -->
+        <div class="sidebar-home">
+          <article class="categories-article">
+            <h3>Categories</h3>
+            <ul class="category-list">
+              <li>Processors</li>
+              <li>Graphics Cards</li>
+              <li>RAM</li>
+              <li>Storage</li>
+              <li>Motherboards</li>
+              <li>Power Supplies</li>
+            </ul>
+          </article>
 
-      <% if (results.length === 0) { %>
-        <p class="no-results">No products found.</p>
-      <% } else { %>
-        <div class="products-list">
-          <% results.forEach(product => { %>
-            <div class="product-list-item">
-              <img
-                src="<%= product.image || '/assets/default.png' %>"
-                alt="<%= product.title || 'Product Image' %>"
-              />
-              <div class="product-list-info">
-                <h3><%= product.title %></h3>
-                <p>Category: <%= product.category %></p>
-              </div>
-              <div class="product-price-stock">
-                <p>₱<%= product.price ? product.price.toLocaleString() : 'N/A' %></p>
-                <p class="<%= product.instock ? 'in-stock' : 'out-of-stock' %>">
-                  <%= product.instock ? 'In Stock' : 'Out of Stock' %>
-                </p>
-                <div class="product-list-buttons">
-                  <% if (product.instock) { %>
-                    <form action="/cart/add/<%= product._id %>" method="POST">
-                      <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-                    </form>
-                    <a href="/checkout/<%= product._id %>" class="buy-now-btn">Buy Now</a>
-                  <% } else { %>
-                    <button class="add-to-cart-btn" disabled>Out of Stock</button>
-                  <% } %>
-                </div>
-              </div>
-            </div>
-          <% }) %>
+          <article class="brands-article">
+            <h3>Brands</h3>
+            <ul class="brand-list">
+              <li>MSI</li>
+              <li>Asus</li>
+              <li>AMD</li>
+              <li>Intel</li>
+              <li>Gigabyte</li>
+              <li>NVIDIA</li>
+            </ul>
+          </article>
         </div>
 
-        <!-- Pagination -->
-        <% if (totalPages > 1) { %>
-          <div class="pagination">
-            <% if (page > 1) { %>
-              <a href="/search?q=<%= query %>&page=<%= page - 1 %>" class="page-btn">Previous</a>
-            <% } %>
+        <!-- Products List -->
+        <div class="products-list-container">
+          <h1 class="search-title">Search results for "<%= query %>"</h1>
 
-            <% for (let p = 1; p <= totalPages; p++) { %>
-              <a href="/search?q=<%= query %>&page=<%= p %>" 
-                 class="page-btn <%= p === page ? 'active' : '' %>"><%= p %></a>
-            <% } %>
+          <% if (results.length === 0) { %>
+            <p class="no-results">No products found.</p>
+          <% } else { %>
+            <div class="products-list">
+              <% results.forEach(product => { %>
+                <div class="product-list-item">
+                  <img
+                    src="<%= product.image || '/assets/default.png' %>"
+                    alt="<%= product.title || 'Product Image' %>"
+                  />
+                  <div class="product-list-info">
+                    <h3><%= product.title %></h3>
+                    <p>Category: <%= product.category %></p>
+                  </div>
+                  <div class="product-price-stock">
+                    <p>₱<%= product.price ? product.price.toLocaleString() : 'N/A' %></p>
+                    <p class="<%= product.instock ? 'in-stock' : 'out-of-stock' %>">
+                      <%= product.instock ? 'In Stock' : 'Out of Stock' %>
+                    </p>
+                    <div class="product-list-buttons">
+                      <% if (product.instock) { %>
+                        <form action="/cart/add/<%= product._id %>" method="POST">
+                          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                        </form>
+                        <a href="/checkout/<%= product._id %>" class="buy-now-btn">Buy Now</a>
+                      <% } else { %>
+                        <button class="add-to-cart-btn" disabled>Out of Stock</button>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
 
-            <% if (page < totalPages) { %>
-              <a href="/search?q=<%= query %>&page=<%= page + 1 %>" class="page-btn">Next</a>
+            <!-- Pagination -->
+            <% if (totalPages > 1) { %>
+              <div class="pagination">
+                <% if (page > 1) { %>
+                  <a href="/search?q=<%= query %>&page=<%= page - 1 %>" class="page-btn">Previous</a>
+                <% } %>
+
+                <% for (let p = 1; p <= totalPages; p++) { %>
+                  <a href="/search?q=<%= query %>&page=<%= p %>" 
+                    class="page-btn <%= p === page ? 'active' : '' %>"><%= p %></a>
+                <% } %>
+
+                <% if (page < totalPages) { %>
+                  <a href="/search?q=<%= query %>&page=<%= page + 1 %>" class="page-btn">Next</a>
+                <% } %>
+              </div>
             <% } %>
-          </div>
-        <% } %>
-      <% } %>
+          <% } %>
+        </div>
+      </section>
     </main>
+
 
     <!-- Login Modal -->
     <%- include('partials/loginModal') %>

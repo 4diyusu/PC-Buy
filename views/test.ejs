@@ -38,18 +38,17 @@
 
         <!-- Order Summary -->
         <!-- Order Summary -->
+
+        <!-- Order Summary -->
+        <!-- Order Summary -->
+        <!-- Order Summary -->
+        <!-- Order Summary -->
         <div class="checkout-summary">
           <h2>Order Summary</h2>
           <p>Subtotal: ₱<%= subtotal.toLocaleString() %></p>
           <p>Shipping: ₱<%= shippingFee.toLocaleString() %></p>
           <h3>Total: ₱<%= total.toLocaleString() %></h3>
-          
-          <!-- Redirect to Payment Page -->
-          <form action="/payment" method="GET">
-            <button type="submit" class="btn-primary">Proceed to Payment</button>
-          </form>
         </div>
-
       </div>
     <% } else { %>
       <p class="empty-cart-msg">Your cart is empty. <a href="/">Go shopping</a></p>
