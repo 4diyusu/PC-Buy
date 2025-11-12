@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wishlist | PC Buy</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/pages/transaction-history.css" />
+</head>
+<body>
+  <%- include(isLoggedIn ? '../partials/loggedinHeader' : '../partials/header', { isLoggedIn, username }) %>
+
+  <main class="register-layout">
+    <div class="register-box coming-soon-box">
+      <h2>Wishlists</h2>
+      <hr />
+      <p>This feature is <strong>coming soon!</strong></p>
+      <img src="/assets/page-under-construction.png" alt="Under Work" class="coming-soon-img" />
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

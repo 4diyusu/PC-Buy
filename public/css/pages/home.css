@@ -13,18 +13,31 @@
   flex: 0 0 220px;
 }
 
+/* Article Boxes */
 .categories-article,
 .brands-article {
   background-color: var(--card-light);
   padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid var(--primary-green);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.categories-article:hover,
+.brands-article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .categories-article h3,
 .brands-article h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
+  margin-bottom: 0.7rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--light-text);
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.3rem;
 }
 
 .category-list,
@@ -32,25 +45,37 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .category-list li,
 .brand-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ccc;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid #ddd;
   cursor: pointer;
-  transition: background 0.2s;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .category-list li:hover,
 .brand-list li:hover {
-  background-color: #e9e9e9;
+  background-color: var(--primary-green);
+  color: white;
 }
 
-/* Dark Mode for Sidebar */
+/* Dark Mode Sidebar */
+body.dark-mode .categories-article h3,
+body.dark-mode .brands-article h3 {
+  color: var(--dark-text);
+  border-bottom-color: #555; 
+}
+
 body.dark-mode .categories-article,
 body.dark-mode .brands-article {
   background-color: var(--card-dark);
+  border-left-color: var(--accent-green);
 }
 
 body.dark-mode .category-list li,
@@ -60,7 +85,8 @@ body.dark-mode .brand-list li {
 
 body.dark-mode .category-list li:hover,
 body.dark-mode .brand-list li:hover {
-  background-color: #333;
+  background-color: var(--accent-green);
+  color: #fff;
 }
 
 /* ========== Products Section ========== */
@@ -68,8 +94,8 @@ body.dark-mode .brand-list li:hover {
   flex: 1;
   background-color: var(--card-light);
   padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 body.dark-mode .products-article {
@@ -92,6 +118,12 @@ body.dark-mode .products-article {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 body.dark-mode .product-card {
@@ -114,6 +146,7 @@ body.dark-mode .product-card {
 
 .product-card h4 {
   margin: 0.5rem 0;
+  font-size: 1rem;
 }
 
 .product-card .product-desc {
@@ -124,9 +157,8 @@ body.dark-mode .product-card {
   display: -webkit-box;
   -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
-
   line-clamp: 3;
-  box-orient: vertical; 
+  box-orient: vertical;
 }
 
 body.dark-mode .product-card .product-desc {
@@ -168,33 +200,28 @@ body.dark-mode .product-card .product-desc {
 
 .brand-box {
   background-color: #f0f0f0;
-  padding: 15px 25px;
+  padding: 12px 20px;
   text-align: center;
   border-radius: 8px;
   color: #333;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  transition: background 0.2s ease;
+  transition: background 0.2s, transform 0.2s;
   cursor: pointer;
 }
 
 .brand-box:hover {
   background-color: #d2d2d2;
+  transform: translateY(-2px);
 }
 
-/* Dark Mode for Brand Boxes */
 body.dark-mode .brand-box-section {
   background-color: var(--dark-bg);
   box-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
-body.dark-mode .brand-box-section h2 {
-  color: var(--dark-text);
-}
-
 body.dark-mode .brand-box {
-  background-color: var(--dark-bg);
+  background-color: var(--card-dark);
   color: var(--dark-text);
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .brand-box:hover {

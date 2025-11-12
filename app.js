@@ -17,6 +17,9 @@ const checkoutRoutes = require('./routes/checkout');
 const paymentRoutes = require('./routes/payment');
 const accountRoutes = require('./routes/account');
 const transactionHistoryRoutes = require('./routes/transaction-history');
+const helpcenterRoutes = require('./routes/help-center');
+const trackanOrderRoutes = require('./routes/track-an-order');
+const wishlistRoutes = require('./routes/wishlist');
 const logoutRoute = require('./routes/logout');
 
 // Models
@@ -78,6 +81,9 @@ app.use('/checkout', isAuthenticated, checkoutRoutes);
 app.use('/payment', isAuthenticated, paymentRoutes); 
 app.use('/account', accountRoutes);
 app.use('/transaction-history', transactionHistoryRoutes);
+app.use('/help-center', helpcenterRoutes);
+app.use('/track-an-order', trackanOrderRoutes);
+app.use('/wishlist', wishlistRoutes);
 app.use('/logout', logoutRoute);
 
 // ─────────────────────────────────────────────────────────────
