@@ -8,9 +8,14 @@
       />
     </a>
   </div>
+  
   <div class="search-container">
-    <input type="text" class="search-bar" placeholder="Search products..." />
+    <form id="searchForm" action="/search" method="GET">
+      <input type="text" name="q" class="search-bar" placeholder="Search products..." required />
+      <button type="submit" style="display:none;"></button> <!-- hidden submit to allow Enter key -->
+    </form>
   </div>
+
   <div class="nav-actions">
     <button id="openLoginBtn">Login</button>
     <a href="/cart" class="cart-btn" title="View Cart" aria-label="View Cart">

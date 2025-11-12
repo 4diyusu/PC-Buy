@@ -12,7 +12,6 @@ const isAuthenticated = require('./middleware/auth');
 // Routes
 const productRoutes = require('./routes/product');
 const authRoutes = require('./routes/auth');
-const seedRoute = require('./routes/seed');
 const cartRoutes = require('./routes/cart');
 const checkoutRoutes = require('./routes/checkout');
 const paymentRoutes = require('./routes/payment');
@@ -73,7 +72,6 @@ app.use((req, res, next) => {
 // Routes Setup
 // ─────────────────────────────────────────────────────────────
 app.use(authRoutes);
-app.use(seedRoute);
 app.use('/product', productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/checkout', isAuthenticated, checkoutRoutes);
@@ -186,6 +184,49 @@ app.get('/checkout-success', (req, res) => {
     username: req.session.username || null,
     status
   });
+});
+
+// Search Page
+app.get('/search', async (req, res) => {
+  const query = req.query.q || '';
+  const page = parseInt(req.query.page) || 1; // current page
+  const limit = 10; // products per page
+  const skip = (page - 1) * limit;
+
+  try {
+    // Get total count matching query
+    const totalResults = await Product.countDocuments({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { category: { $regex: query, $options: 'i' } }
+      ]
+    });
+
+    // Fetch paginated results
+    const results = await Product.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { category: { $regex: query, $options: 'i' } }
+      ]
+    })
+    .skip(skip)
+    .limit(limit);
+
+    const totalPages = Math.ceil(totalResults / limit);
+
+    res.render('search', {
+      query,
+      results,
+      page,
+      totalPages,
+      isLoggedIn: req.session.userId ? true : false,
+      username: req.session.username || ''
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
 

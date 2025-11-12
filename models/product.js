@@ -10,8 +10,9 @@ const productSchema = new mongoose.Schema({
   },
   fullSpecs: String,
   recommended: Boolean,
-  image: String
+  image: String,
+  brand: String, 
+  category: String  
 });
 
 module.exports = mongoose.model('Product', productSchema);
-
