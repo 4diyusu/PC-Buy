@@ -87,17 +87,17 @@ app.use('/logout', logoutRoute);
 // Home Page
 app.get('/', async (req, res) => {
   try {
-    const allProducts = await Product.find();
-    const recommendedProducts = allProducts.slice(0, 4);
+    const allProducts = await Product.aggregate([{ $sample: { size: 20 } }]);
+    const recommendedProducts = allProducts.slice(0, 8);
 
     res.render('index', {
-      allProducts,
       recommendedProducts,
+      allProducts,
       isLoggedIn: !!req.session.userId,
-      username: req.session.username || null
+      username: req.session.username || ''
     });
-  } catch (error) {
-    console.error('Error loading homepage:', error);
+  } catch (err) {
+    console.error(err);
     res.status(500).send('Server Error');
   }
 });

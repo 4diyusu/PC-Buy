@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <!--  Header (Dynamic based on login state) -->
+    <!-- Header (Dynamic based on login state) -->
     <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
 
     <main class="main-layout">
@@ -42,13 +42,19 @@
           <h2>Recommended Products</h2>
           <div class="product-grid">
             <% recommendedProducts.forEach(p => { %>
-            <div class="product-card">
-              <h4><%= p.title %></h4>
-              <p><%= p.description %></p>
-              <button onclick="location.href='/product?id=<%= p._id %>'">
-                View Product
-              </button>
-            </div>
+              <div class="product-card">
+                <img 
+                  src="<%= p.image || '/assets/default.png' %>" 
+                  alt="<%= p.title %>" 
+                  onclick="location.href='/product?id=<%= p._id %>'"
+                  class="product-img"
+                />
+                <h4><%= p.title %></h4>
+                <p class="product-desc"><%= p.description.length > 100 ? p.description.substring(0, 100) + '...' : p.description %></p>
+                <button onclick="location.href='/product?id=<%= p._id %>'">
+                  View Product
+                </button>
+              </div>
             <% }); %>
           </div>
         </article>
@@ -57,14 +63,10 @@
       <section class="brand-box-section">
         <h2>Shop by Brand</h2>
         <div class="brand-box-grid">
-          <% ['MSI', 'Gigabyte', 'ASUS', 'Intel', 'AMD',
-          'NVIDIA'].forEach(function(brand) { %>
-          <div
-            class="brand-box"
-            onclick="location.href='/brand?name=<%= brand %>'"
-          >
-            <%= brand %>
-          </div>
+          <% ['MSI', 'Gigabyte', 'ASUS', 'Intel', 'AMD', 'NVIDIA'].forEach(function(brand) { %>
+            <div class="brand-box" onclick="location.href='/brand?name=<%= brand %>'">
+              <%= brand %>
+            </div>
           <% }); %>
         </div>
       </section>
@@ -72,23 +74,29 @@
       <section class="all-products-section">
         <h2>All Products</h2>
         <div class="product-grid">
-          <% allProducts.forEach(p => { %>
-          <div class="product-card">
-            <h4><%= p.title %></h4>
-            <p><%= p.description %></p>
-            <button onclick="location.href='/product?id=<%= p._id %>'">
-              View Product
-            </button>
-          </div>
+          <% allProducts.slice(0, 20).forEach(p => { %>
+            <div class="product-card">
+              <img 
+                src="<%= p.image || '/assets/default.png' %>" 
+                alt="<%= p.title %>" 
+                onclick="location.href='/product?id=<%= p._id %>'"
+                class="product-img"
+              />
+              <h4><%= p.title %></h4>
+              <p class="product-desc"><%= p.description.length > 100 ? p.description.substring(0, 100) + '...' : p.description %></p>
+              <button onclick="location.href='/product?id=<%= p._id %>'">
+                View Product
+              </button>
+            </div>
           <% }); %>
         </div>
       </section>
     </main>
 
-    <!--  Login Modal -->
+    <!-- Login Modal -->
     <%- include('partials/loginModal') %>
 
-    <!--  Footer -->
+    <!-- Footer -->
     <%- include('partials/footer') %>
 
     <!-- Scripts -->
