@@ -1,0 +1,65 @@
+<!--TEST TEST TEST DELETE DELETE DELETE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | PC Buy</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
+
+  <!-- Checkout Section -->
+  <main class="checkout-page">
+    <h1>Checkout</h1>
+
+    <% if (cartItems && cartItems.length > 0) { %>
+      <div class="checkout-container">
+
+        <!-- Cart Summary -->
+        <div class="checkout-cart">
+          <h2>Your Items</h2>
+          <% cartItems.forEach(item => { %>
+            <div class="checkout-item">
+              <img src="<%= item.product.image || '/assets/default.png' %>" 
+                  alt="<%= item.product.title %>">
+              <div class="item-details">
+                <h3><%= item.product.title %></h3>
+                <p>Price: ₱<%= item.product.price.toLocaleString() %></p>
+                <p>Quantity: <%= item.quantity %></p>
+                <p>Subtotal: ₱<%= item.subtotal.toLocaleString() %></p>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+
+        <!-- Order Summary -->
+        <!-- Order Summary -->
+        <div class="checkout-summary">
+          <h2>Order Summary</h2>
+          <p>Subtotal: ₱<%= subtotal.toLocaleString() %></p>
+          <p>Shipping: ₱<%= shippingFee.toLocaleString() %></p>
+          <h3>Total: ₱<%= total.toLocaleString() %></h3>
+          
+          <!-- Redirect to Payment Page -->
+          <form action="/payment" method="GET">
+            <button type="submit" class="btn-primary">Proceed to Payment</button>
+          </form>
+        </div>
+
+      </div>
+    <% } else { %>
+      <p class="empty-cart-msg">Your cart is empty. <a href="/">Go shopping</a></p>
+    <% } %>
+  </main>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
