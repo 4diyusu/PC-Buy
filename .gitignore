@@ -1,6 +1,7 @@
 # Ignore folders
 node_modules/
 .env
+seed/
 
 # Optional: log files and system files
 *.log

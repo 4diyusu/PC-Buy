@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <%- include('../partials/loggedinHeader', { isLoggedIn, username }) %>
+  <%- include('partials/loggedinHeader', { isLoggedIn, username }) %>
 
   <main class="register-layout">
     <div class="register-box coming-soon-box">
@@ -18,7 +18,8 @@
     </div>
   </main>
 
-  <%- include('../partials/footer') %>
+  <%- include('partials/footer') %>
+
   <script src="/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,217 @@
+/* ========== Search Results List ========== */
+.search-results-layout {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.search-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--light-text);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.no-results {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+}
+
+/* ========== List Container ========== */
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ========== Individual List Item ========== */
+.product-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--card-light);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.product-list-item:hover {
+  background-color: var(--light-bg);
+  transform: translateX(3px);
+}
+
+/* ========== Thumbnail Image ========== */
+.product-list-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ========== Product Info in List ========== */
+.product-list-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.2rem;
+}
+
+.product-list-info h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--light-text);
+}
+
+.product-list-info p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+}
+
+/* ========== Price & Stock ========= */
+.product-price-stock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.in-stock {
+  color: var(--primary-green);
+  font-weight: bold;
+}
+
+.out-of-stock {
+  color: #d9534f; /* red alert color */
+  font-weight: bold;
+}
+
+/* ========== Buttons ========== */
+.product-list-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.add-to-cart-btn,
+.buy-now-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-to-cart-btn {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+.add-to-cart-btn:hover {
+  background-color: var(--accent-green);
+}
+
+.buy-now-btn {
+  background-color: #0078d7;
+  color: white;
+}
+
+.buy-now-btn:hover {
+  background-color: #005fa3;
+}
+
+/* ========== Pagination ========== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: var(--card-light);
+  color: var(--light-text);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.page-btn:hover {
+  background-color: var(--light-bg);
+}
+
+.page-btn.active {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+/* ========== Dark Mode ========== */
+body.dark-mode .search-results-layout {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+body.dark-mode .product-list-item {
+  background-color: var(--card-dark);
+}
+
+body.dark-mode .product-list-info h3,
+body.dark-mode .product-list-info p {
+  color: var(--dark-text);
+}
+
+body.dark-mode .in-stock {
+  color: var(--primary-green);
+}
+
+body.dark-mode .out-of-stock {
+  color: #d9534f;
+}
+
+body.dark-mode .add-to-cart-btn {
+  background-color: var(--accent-green);
+}
+
+body.dark-mode .add-to-cart-btn:hover {
+  background-color: var(--primary-green);
+}
+
+body.dark-mode .buy-now-btn {
+  background-color: #4da3ff;
+}
+
+body.dark-mode .page-btn {
+  background-color: var(--card-dark);
+  color: var(--dark-text);
+}
+
+body.dark-mode .page-btn:hover {
+  background-color: var(--dark-bg);
+}
+
+body.dark-mode .page-btn.active {
+  background-color: var(--accent-green);
+  color: white;
+}
+
+/* ========== Responsive Adjustments ========== */
+@media (max-width: 768px) {
+  .product-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-price-stock {
+    align-items: flex-start;
+    margin-top: 0.5rem;
+  }
+}
