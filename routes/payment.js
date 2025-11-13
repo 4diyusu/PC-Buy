@@ -1,39 +1,67 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
+const isAuthenticated = require('../middleware/auth');
 
 // ──────────────────────────────
-// Render Payment Page
+// GET /payment — show payment selection
 // ──────────────────────────────
-router.get('/', (req, res) => {
-  res.render('payment', {
-    isLoggedIn: !!req.session.userId,
-    username: req.session.username || null
-  });
+router.get('/', isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userId).populate('cart.product');
+
+    let cartItems = [];
+    let total = 0;
+
+    if (user && user.cart.length) {
+      cartItems = user.cart.map(item => {
+        const product = item.product;
+        if (!product) return null;
+        const quantity = item.quantity;
+        const subtotal = product.price * quantity;
+        total += subtotal;
+        return { product, quantity, subtotal };
+      }).filter(Boolean);
+    }
+
+    res.render('payment', {
+      isLoggedIn: true,
+      username: req.session.username,
+      cartItems,
+      total
+    });
+  } catch (err) {
+    console.error('Error loading payment page:', err);
+    res.status(500).send('Server Error');
+  }
 });
 
 // ──────────────────────────────
-// Handle Payment Submission
+// POST /payment — handle payment submission
 // ──────────────────────────────
-router.post('/', (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
   const { paymentMethod } = req.body;
 
-  // Safety check
-  if (!paymentMethod) {
-    return res.redirect('/payment');
-  }
+  if (!paymentMethod) return res.redirect('/payment');
 
-  // COD → pending approval
-  if (paymentMethod === 'cod') {
-    return res.redirect('/checkout-success?status=pending');
-  }
+  try {
+    const user = await User.findById(req.session.userId);
 
-  // GCash or Card → approved
-  if (paymentMethod === 'gcash' || paymentMethod === 'card') {
-    return res.redirect('/checkout-success?status=approved');
-  }
+    // Clear the cart after payment
+    user.cart = [];
+    await user.save();
 
-  // Fallback if unknown method
-  return res.redirect('/payment');
+    // Render success page
+    res.render('checkout-success', {
+      isLoggedIn: true,
+      username: req.session.username,
+      status: paymentMethod === 'cod' ? 'pending' : 'approved'
+    });
+
+  } catch (err) {
+    console.error('Payment processing error:', err);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;
