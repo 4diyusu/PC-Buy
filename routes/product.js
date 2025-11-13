@@ -42,11 +42,23 @@ router.get('/:id', async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).send('Product not found');
 
-    // Render view using product as-is; fallback logic is in EJS
+    // Fetch recommended products (same category, exclude current)
+    const recommended = await Product.find({
+      category: product.category,
+      _id: { $ne: product._id }
+    })
+      .limit(5) // number of recommended products
+      .exec();
+
     const isLoggedIn = !!req.session.userId;
     const username = req.session.username || null;
 
-    res.render('product', { product, isLoggedIn, username });
+    res.render('product', {
+      product,
+      isLoggedIn,
+      username,
+      recommended // pass recommended here
+    });
   } catch (err) {
     console.error('Error fetching product:', err);
     res.status(500).send('Internal Server Error');

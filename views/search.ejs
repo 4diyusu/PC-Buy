@@ -48,32 +48,33 @@
           <% } else { %>
             <div class="products-list">
               <% results.forEach(product => { %>
-                <div class="product-list-item">
-                  <img
-                    src="<%= product.image || '/assets/default.png' %>"
-                    alt="<%= product.title || 'Product Image' %>"
-                  />
-                  <div class="product-list-info">
-                    <h3><%= product.title %></h3>
-                    <p>Category: <%= product.category %></p>
-                  </div>
-                  <div class="product-price-stock">
-                    <p>₱<%= product.price ? product.price.toLocaleString() : 'N/A' %></p>
-                    <p class="<%= product.instock ? 'in-stock' : 'out-of-stock' %>">
-                      <%= product.instock ? 'In Stock' : 'Out of Stock' %>
-                    </p>
-                    <div class="product-list-buttons">
-                      <% if (product.instock) { %>
-                        <form action="/cart/add/<%= product._id %>" method="POST">
-                          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-                        </form>
-                        <a href="/checkout/<%= product._id %>" class="buy-now-btn">Buy Now</a>
-                      <% } else { %>
-                        <button class="add-to-cart-btn" disabled>Out of Stock</button>
-                      <% } %>
+                <form
+                  action="/product/<%= product._id %>"
+                  method="GET"
+                  class="product-form"
+                >
+                  <button type="submit" class="product-list-item">
+                    <img
+                      src="<%= product.image || '/assets/default.png' %>"
+                      alt="<%= product.title || 'Product Image' %>"
+                    />
+                    <div class="product-list-info">
+                      <h3><%= product.title %></h3>
+                      <p>
+                        <%= product.description && product.description.length > 80 
+                          ? product.description.substring(0, 80) + '...' 
+                          : (product.description || 'No description available') %>
+                      </p>
+                      <p>Category: <%= product.category %></p>
                     </div>
-                  </div>
-                </div>
+                    <div class="product-price-stock">
+                      <p>₱<%= product.price ? product.price.toLocaleString() : 'N/A' %></p>
+                      <p class="<%= product.instock ? 'in-stock' : 'out-of-stock' %>">
+                        <%= product.instock ? 'In Stock' : 'Out of Stock' %>
+                      </p>
+                    </div>
+                  </button>
+                </form>
               <% }) %>
             </div>
 
@@ -85,7 +86,7 @@
                 <% } %>
 
                 <% for (let p = 1; p <= totalPages; p++) { %>
-                  <a href="/search?q=<%= query %>&page=<%= p %>" 
+                  <a href="/search?q=<%= query %>&page=<%= p %>"
                     class="page-btn <%= p === page ? 'active' : '' %>"><%= p %></a>
                 <% } %>
 
