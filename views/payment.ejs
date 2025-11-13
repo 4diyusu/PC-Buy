@@ -16,7 +16,22 @@
     <div class="payment-box">
       <h1>Select Payment Method</h1>
 
-      <form id="paymentForm">
+      <form id="paymentForm" action="/payment" method="POST">
+        <!-- Cart Summary -->
+        <% if (cartItems && cartItems.length) { %>
+          <div class="cart-summary">
+            <h3>Order Summary</h3>
+            <ul>
+              <% cartItems.forEach(item => { %>
+                <li>
+                  <%= item.product.title %> x <%= item.quantity %> — ₱<%= item.subtotal %>
+                </li>
+              <% }) %>
+            </ul>
+            <p><strong>Total: ₱<%= total %></strong></p>
+          </div>
+        <% } %>
+
         <!-- Payment Method Dropdown -->
         <div class="form-group">
           <label for="paymentMethod">Choose Method</label>
@@ -33,7 +48,6 @@
           <h3>GCash Payment Details</h3>
           <label for="gcashName">Account Name</label>
           <input type="text" id="gcashName" name="gcashName" placeholder="Full Name">
-
           <label for="gcashNumber">GCash Number</label>
           <input type="text" id="gcashNumber" name="gcashNumber" placeholder="09XXXXXXXXX">
         </div>
@@ -47,13 +61,10 @@
         <!-- Card Section -->
         <div id="cardSection" class="payment-section hidden">
           <h3>Card Payment Details</h3>
-
           <label for="cardNumber">Card Number</label>
           <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
-
           <label for="cardName">Name on Card</label>
           <input type="text" id="cardName" name="cardName" placeholder="Full Name">
-
           <div class="card-info">
             <div>
               <label for="expiry">Expiry Date</label>
@@ -64,7 +75,6 @@
               <input type="password" id="cvv" name="cvv" maxlength="3" placeholder="123">
             </div>
           </div>
-
           <label class="save-card">
             <input type="checkbox" name="saveCard"> Save card for future payments
           </label>

@@ -9,7 +9,7 @@
 <body>
 
   <!-- Header -->
-  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header') %>
+  <%- include(isLoggedIn ? 'partials/loggedinHeader' : 'partials/header', { isLoggedIn, username }) %>
 
   <!-- Confirmation Section -->
   <div class="checkout-success-wrapper">
@@ -17,11 +17,21 @@
       <div class="success-icon">✅</div>
       <h1>Order Placed!</h1>
       <p>Hi <%= username %>, your order has been successfully placed.</p>
-      <p>Status: <strong>Waiting for approval</strong></p>
+      <p>Status: <strong>
+        <% if (status === 'approved') { %>
+          Payment Approved ✅
+        <% } else if (status === 'pending') { %>
+          Waiting for Approval ⏳
+        <% } else { %>
+          <%= status %>
+        <% } %>
+      </strong></p>
 
       <div class="order-actions">
         <a href="/" class="btn-primary">Back to Home</a>
-        <a href="/cart" class="btn-secondary">Back to Cart</a>
+        <% if (status !== 'approved') { %>
+          <a href="/cart" class="btn-secondary">Back to Cart</a>
+        <% } %>
       </div>
     </div>
   </div>
