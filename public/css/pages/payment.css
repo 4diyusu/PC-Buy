@@ -42,6 +42,10 @@ body.dark-mode .payment-box {
   letter-spacing: 0.5px;
 }
 
+body.dark-mode .payment-box h1 {
+  color: var(--dark-text);
+}
+
 /* --- Form Styling --- */
 .form-group {
   margin-bottom: 20px;

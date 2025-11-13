@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const { storage } = require('../utils/cloudinary');
 const upload = multer({ storage });
+const mongoose = require('mongoose');
 
 const Product = require('../models/product');
 
@@ -16,7 +17,7 @@ router.get('/add', (req, res) => {
 // POST /product/add — Save product to DB with optional image
 router.post('/add', upload.single('image'), async (req, res) => {
   try {
-    const { title, description, price, instock, fullSpecs, recommended } = req.body;
+    const { title, description, price, instock, fullSpecs } = req.body;
 
     const newProduct = new Product({
       title,
@@ -24,7 +25,6 @@ router.post('/add', upload.single('image'), async (req, res) => {
       price,
       instock: instock === 'true',
       fullSpecs,
-      recommended: recommended === 'true',
       image: req.file?.path || null, // Cloudinary image URL
     });
 
@@ -39,26 +39,21 @@ router.post('/add', upload.single('image'), async (req, res) => {
 // GET /product/:id — View a single product
 router.get('/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).send('Product not found');
+    const { id } = req.params;
 
-    // Fetch recommended products (same category, exclude current)
-    const recommended = await Product.find({
-      category: product.category,
-      _id: { $ne: product._id }
-    })
-      .limit(5) // number of recommended products
-      .exec();
+    // Validate ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.warn(`Invalid product ID: ${id}`);
+      return res.status(400).send('Invalid Product ID');
+    }
+
+    const product = await Product.findById(id);
+    if (!product) return res.status(404).send('Product not found');
 
     const isLoggedIn = !!req.session.userId;
     const username = req.session.username || null;
 
-    res.render('product', {
-      product,
-      isLoggedIn,
-      username,
-      recommended // pass recommended here
-    });
+    res.render('product', { product, isLoggedIn, username });
   } catch (err) {
     console.error('Error fetching product:', err);
     res.status(500).send('Internal Server Error');
