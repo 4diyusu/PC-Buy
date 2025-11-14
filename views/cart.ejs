@@ -62,7 +62,13 @@
               <button type="submit" class="btn btn-primary">Checkout</button>
             </form>
           <% } else { %>
-            <p>Please <a href="#" onclick="openLoginModal()">log in</a> to proceed to checkout.</p>
+            <p class="cart-login-warning">
+              Please 
+              <a href="#" onclick="document.getElementById('openLoginBtn').click(); return false;">
+                Login
+              </a> 
+              to proceed to checkout.
+            </p>
           <% } %>
         </section>
       <% } %>
