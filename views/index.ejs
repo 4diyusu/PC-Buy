@@ -13,31 +13,94 @@
     <main class="main-layout">
       <section class="top-section">
         <div class="sidebar-home">
+          <!-- Categories -->
           <article class="categories-article">
             <h3>Categories</h3>
             <ul class="category-list">
-              <li>Processors</li>
-              <li>Graphics Cards</li>
-              <li>RAM</li>
-              <li>Storage</li>
-              <li>Motherboards</li>
-              <li>Power Supplies</li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="CPU" />
+                  <button type="submit">Processors</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="GPU" />
+                  <button type="submit">Graphics Cards</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="Memory" />
+                  <button type="submit">RAM</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="Storage" />
+                  <button type="submit">Storage</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="Motherboard" />
+                  <button type="submit">Motherboards</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="PSU" />
+                  <button type="submit">Power Supplies</button>
+                </form>
+              </li>
             </ul>
           </article>
 
+          <!-- Brands -->
           <article class="brands-article">
             <h3>Brands</h3>
             <ul class="brand-list">
-              <li>MSI</li>
-              <li>Asus</li>
-              <li>AMD</li>
-              <li>Intel</li>
-              <li>Gigabyte</li>
-              <li>NVIDIA</li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="MSI" />
+                  <button type="submit">MSI</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="Asus" />
+                  <button type="submit">Asus</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="AMD" />
+                  <button type="submit">AMD</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="Intel" />
+                  <button type="submit">Intel</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="Gigabyte" />
+                  <button type="submit">Gigabyte</button>
+                </form>
+              </li>
+              <li>
+                <form action="/search" method="GET">
+                  <input type="hidden" name="q" value="NZXT" />
+                  <button type="submit">NZXT</button>
+                </form>
+              </li>
             </ul>
           </article>
         </div>
 
+        <!-- Recommended Products -->
         <article class="products-article">
           <h2>Recommended Products</h2>
           <div class="product-grid">
@@ -60,17 +123,20 @@
         </article>
       </section>
 
+      <!-- Brand Boxes -->
       <section class="brand-box-section">
         <h2>Shop by Brand</h2>
         <div class="brand-box-grid">
           <% ['MSI', 'Gigabyte', 'ASUS', 'Intel', 'AMD', 'NVIDIA'].forEach(function(brand) { %>
-            <div class="brand-box" onclick="location.href='/brand?name=<%= brand %>'">
-              <%= brand %>
-            </div>
+            <form action="/search" method="GET" style="display:inline-block;">
+              <input type="hidden" name="q" value="<%= brand %>" />
+              <button class="brand-box" type="submit"><%= brand %></button>
+            </form>
           <% }); %>
         </div>
       </section>
 
+      <!-- All Products -->
       <section class="all-products-section">
         <h2>All Products</h2>
         <div class="product-grid">
